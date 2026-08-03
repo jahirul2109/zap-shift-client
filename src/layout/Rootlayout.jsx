@@ -5,7 +5,7 @@ import Footer from '../utilits/Footer'
 
 const Rootlayout = () => {
   return (
-    <div>
+    <div className='py-8 px-5 md:py:10 md:px-10'>
         <Navbar></Navbar>
         <Outlet></Outlet>
         <Footer></Footer>
