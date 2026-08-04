@@ -2,6 +2,10 @@ import React from 'react'
 import Hero from '../herosection/Hero'
 import Deliverysys from '../delivery_system/Deliverysys'
 import Service from '../services/Service'
+import Brand from '../brands/Brand'
+import Support from '../support/Support'
+import Merchant from '../merchant/Merchant'
+import Review from '../reviews/Review'
 
 export const Home = () => {
   return (
@@ -9,6 +13,10 @@ export const Home = () => {
       <Hero></Hero>
       <Deliverysys></Deliverysys>
       <Service></Service>
+      <Brand></Brand>
+      <Support></Support>
+      <Merchant></Merchant>
+      <Review></Review>
     </div>
   )
 }
