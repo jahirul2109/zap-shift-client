@@ -6,6 +6,7 @@ import Brand from '../brands/Brand'
 import Support from '../support/Support'
 import Merchant from '../merchant/Merchant'
 import Review from '../reviews/Review'
+import { Faq } from '../faq/Faq'
 
 export const Home = () => {
   return (
@@ -17,6 +18,7 @@ export const Home = () => {
       <Support></Support>
       <Merchant></Merchant>
       <Review></Review>
+      <Faq></Faq>
     </div>
   )
 }

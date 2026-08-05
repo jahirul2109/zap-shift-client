@@ -5,10 +5,10 @@ import Footer from '../utilits/Footer'
 
 const Rootlayout = () => {
   return (
-    <div className='py-8 px-5 md:py:10 md:px-10'>
-        <Navbar></Navbar>
-        <Outlet></Outlet>
-        <Footer></Footer>
+    <div className='py-8 px-3 md:py:10 md:px-10 '>
+      <Navbar></Navbar>
+      <Outlet></Outlet>
+      <Footer></Footer>
     </div>
   )
 }
