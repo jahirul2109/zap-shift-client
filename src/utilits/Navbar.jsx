@@ -8,7 +8,7 @@ import { VscCloseCompact } from 'react-icons/vsc'
 const links = <>
     <h1><Link>Service</Link></h1>
     <h1 className='py-2 px-3 rounded-3xl bg-amber-300'><Link>Service</Link></h1>
-    <h1><Link>Service</Link></h1>
+    <h1><Link to="/coverage">Coverage</Link></h1>
     <h1><Link>Be a Rider</Link></h1>
 </>
 const Navbar = () => {
@@ -29,7 +29,8 @@ const Navbar = () => {
                 </div>
                 <div
                     onClick={() => setMenu(pre => !pre)}
-                    className='flex items-center w-6 h-6 cursor-pointer md:hidden'>
+                    className='flex items-center w-6 h-6 cursor-pointer md:hidden'
+                >
                     <VscCloseCompact className={`absolute transition-all duration-300 ${menu ? 'opacity-100 rotate-90' : 'opacity-0 rotate-0'}`}></VscCloseCompact >
                     <FaBars className={`absolute transition-all duration-300 ${menu ? 'opacity-0 ' : 'opacity-100 rotate-0'}`}>
 

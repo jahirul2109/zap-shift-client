@@ -8,7 +8,7 @@ const Card = ({data}) => {
           <img src={img} alt={data.title} className='w-10 md:w-14' />
         </div>
         <h1 className='text-secondary font-bold'>{data.title}</h1>
-        <p className='text-base-100 text-center'>{data.description}</p>
+        <p className='text-base-content text-center'>{data.description}</p>
     </div>
   )
 }

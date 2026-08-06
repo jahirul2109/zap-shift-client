@@ -48,7 +48,7 @@ export const Faq = () => {
                         Frequently Asked Question (FAQ)
                     </h2>
 
-                    <p className="max-w-2xl mx-auto mt-4 text-base-100">
+                    <p className="max-w-2xl mx-auto mt-4 text-base-content">
                         Enhance posture, mobility, and well-being effortlessly with
                         Posture Pro. Achieve proper alignment, reduce pain, and strengthen
                         your body with ease!

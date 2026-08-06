@@ -17,6 +17,7 @@ const Hero = () => {
     return (
         <Swiper
             className='mySwiper'
+            loop={true}
             autoplay={{
                 delay : 2000,
                 disableOnInteraction : true
