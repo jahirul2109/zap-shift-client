@@ -10,7 +10,7 @@ import { Faq } from '../faq/Faq'
 
 export const Home = () => {
   return (
-    <div className='my-10'>
+    <div className='my-10 min-h-screen'>
       <Hero></Hero>
       <Deliverysys></Deliverysys>
       <Service></Service>

@@ -6,10 +6,13 @@ import { Coverage } from "../pages/coverage_page/Coverage";
 import Authlayout from "../layout/Authlayout";
 import { Login } from "../pages/login_page/Login";
 import { Register } from "../pages/register_page/Register";
+import { Forgot } from "../pages/forgot_page/Forgot";
+import ErrorPage from "../utilits/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path : '/',
+        errorElement : ErrorPage ,
         Component : Rootlayout,
         children : [
             {
@@ -18,6 +21,7 @@ const router = createBrowserRouter([
             } , 
             {
                 path : "coverage",
+                errorElement : ErrorPage,
                 Component : Coverage
             }, 
             {
@@ -28,6 +32,7 @@ const router = createBrowserRouter([
     }, 
     {
         path : "/",
+        errorElement : ErrorPage,
         Component : Authlayout ,
         children : [
             {
@@ -39,9 +44,15 @@ const router = createBrowserRouter([
                Component : Register
             },
             {
-                
+                path : "forget_password",
+                Component : Forgot
             }
         ]
+    }, 
+    {
+        path : "*",
+        Component : ErrorPage
     }
+
 ])
 export default router

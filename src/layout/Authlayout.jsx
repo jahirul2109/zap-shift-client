@@ -9,7 +9,7 @@ const Authlayout = () => {
                 <div className='md:block hidden'><Logo></Logo></div>
                 <Outlet></Outlet>
             </div>
-            <div className='flex-1 flex flex-col md:items-center'>
+            <div className='flex-1 flex flex-col md:items-center md:justify-center'>
                <div className='block md:hidden py-5 px-5'><Logo></Logo></div>
                 <img src={authImg} alt="" />
             </div>

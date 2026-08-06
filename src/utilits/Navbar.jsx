@@ -5,14 +5,24 @@ import Logo from '../components/Logo'
 import { IoClose } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
 import { VscCloseCompact } from 'react-icons/vsc'
-const links = <>
-    <h1><Link>Service</Link></h1>
-    <h1 className='py-2 px-3 rounded-3xl bg-amber-300'><Link>Service</Link></h1>
-    <h1><Link to="/coverage">Coverage</Link></h1>
-    <h1><Link>Be a Rider</Link></h1>
-</>
+
 const Navbar = () => {
     const [menu, setMenu] = useState(false)
+    const links = <>
+        <Link to=""
+            className=''
+            onClick={() => setMenu(false)} >Service</Link>
+        <Link
+            to='/about'
+            className=''
+            onClick={() => setMenu(false)} >About</Link>
+        <Link
+            className=''
+            onClick={() => setMenu(false)} to="/coverage">Coverage</Link>
+        <Link
+            className=''
+            onClick={() => setMenu(false)} >Be a Rider</Link>
+    </>
     return (
         <nav className='  bg-white/30 backdrop-blur-lg py-4 px-6 rounded-2xl sticky top-0 z-30 w-full '>
             <div className='flex justify-between items-center'>
@@ -24,8 +34,8 @@ const Navbar = () => {
                 </div>
                 {/* Left site signup / login btn */}
                 <div className='md:flex hidden gap-2 '>
-                    <button className="btn text-xl">Signup</button>
-                    <button className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></button>
+                    <Link to='/register' className="btn text-xl">Signup</Link>
+                    <Link to='/rider_login' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></Link>
                 </div>
                 <div
                     onClick={() => setMenu(pre => !pre)}
@@ -47,8 +57,8 @@ const Navbar = () => {
                         links
                     }
                     <div className='flex justify-between gap-3 items-center'>
-                        <button className="btn text-xl flex-1">Signup</button>
-                        <button className="btn bg-primary flex-1 text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></button>
+                        <Link to='/register' className="btn flex-1 text-xl">Signup</Link>
+                        <Link to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></Link>
                     </div>
                 </div>
             </div>

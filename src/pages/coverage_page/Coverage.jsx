@@ -28,7 +28,7 @@ export const Coverage = () => {
 
     }
     return (
-        <div className='bg-white px-8 py-5 md:mx-15 md:py-10 rounded-2xl my-10 space-y-5 md:space-y-10'>
+        <div className='bg-white px-8 py-5 w-full mx-auto  md:py-10 rounded-2xl my-10 space-y-5 md:space-y-10'>
             <h1 className='text-5xl font-bold  text-secondary'>We are avaiable in 64 districts</h1>
             <form onSubmit={handelSearch}>
                 <label className="input bg-[#ECF3FA]">

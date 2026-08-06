@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export const Forgot = () => {
     return (
@@ -9,7 +10,7 @@ export const Forgot = () => {
                 <label className="label ">Email</label>
                 <input type="email" className="input w-full font-bold" name='email' placeholder="Email" />
                 <button className="btn btn-primary text-xl mt-4 w-full text-secondary font-semibold ">Send</button>
-                <p>Remember your Password ?<Link to='/login' className='underline text-primary font-semibold'>Login</Link></p>
+                <p>Remember your Password ?<Link to='/login' className='underline text-primary font-semibold'> Login</Link></p>
             </fieldset>
         </div>
     )

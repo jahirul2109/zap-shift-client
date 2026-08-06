@@ -5,3 +5,4 @@ import { AuthContext } from "../provider/AuthContext"
     const userInfo = useContext(AuthContext);
     return userInfo ;
 }
+export default useAuth

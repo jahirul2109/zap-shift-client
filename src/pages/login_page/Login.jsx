@@ -24,9 +24,9 @@ export const Login = () => {
                         className={`absolute cursor-pointer text-xl transition-all duration-200 right-2 ${showPassword ? "opacity-100" : "opacity-0"}`}
                     />
                 </div>
-                <Link className='underline text-primary font-semibold'>Forget Password ?</Link>
+                <Link to='/forget_password' className='underline text-primary font-semibold'>Forget Password ?</Link>
                 <button className="btn btn-primary text-xl mt-4 w-full text-secondary font-semibold ">Login</button>
-                <p>Don't Have An Account ?<Link to='/register' className='underline text-primary font-semibold'>Register</Link></p>
+                <p>Don't Have An Account ? <Link to='/register' className='underline text-primary font-semibold'>Register</Link></p>
             </fieldset>
             <GoogleLogin></GoogleLogin>
         </div>
