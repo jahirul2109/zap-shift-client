@@ -8,7 +8,7 @@
   default: true;
   --color-primary: #CAEB66;
   --color-secondary: #03373D;
-  --color-base-100 : #606060;
+  --color-base-content : #606060;
 }
 html {
     font-family: "Urbanist", sans-serif;
