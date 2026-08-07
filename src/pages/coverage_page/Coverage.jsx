@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { map } from 'leaflet';
+
 export const Coverage = () => {
     const position = [23.6850, 90.3563];
     const [warehouse, setWarehouse] = useState([]);
@@ -52,7 +53,7 @@ export const Coverage = () => {
                 <MapContainer
                     ref={locationRef}
                     center={position}
-                    zoom={7}
+                    zoom={8}
                     scrollWheelZoom={false}
                     className='w-full h-[80vh] z-10'>
                     <TileLayer
@@ -61,7 +62,7 @@ export const Coverage = () => {
                     />
 
 
-                    {
+                    { 
                         warehouse.map(mark => (
                             <Marker position={[mark.latitude, mark.longitude]}>
                                 <Popup>
