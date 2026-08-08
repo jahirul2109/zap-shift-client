@@ -5,8 +5,16 @@ import Logo from '../components/Logo'
 import { IoClose } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
 import { VscCloseCompact } from 'react-icons/vsc'
+import useAuth from '../hook/useAuth'
 
 const Navbar = () => {
+    const { user, logout } = useAuth();
+    const handelLogout = () => {
+        logout()
+            .then(() => {
+                console.log("user logout Successfully")
+            })
+    }
     const [menu, setMenu] = useState(false)
     const links = <>
         <Link to=""
@@ -22,6 +30,10 @@ const Navbar = () => {
         <Link
             className=''
             onClick={() => setMenu(false)} >Be a Rider</Link>
+        <Link
+            to='/send-parcel'
+            className=''
+            onClick={() => setMenu(false)} >Send Parcel</Link>
     </>
     return (
         <nav className='  bg-white/30 backdrop-blur-lg py-4 px-6 rounded-2xl sticky top-0 z-30 w-full '>
@@ -34,7 +46,12 @@ const Navbar = () => {
                 </div>
                 {/* Left site signup / login btn */}
                 <div className='md:flex hidden gap-2 '>
-                    <Link to='/register' className="btn text-xl">Signup</Link>
+                    {
+                        user ? <a
+                            onClick={handelLogout}
+                            className="btn flex-1 text-xl">Logout</a> :
+                            <Link to='/register' className="btn flex-1 text-xl">Signup</Link>
+                    }
                     <Link to='/rider_login' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></Link>
                 </div>
                 <div
@@ -57,7 +74,12 @@ const Navbar = () => {
                         links
                     }
                     <div className='flex justify-between gap-3 items-center'>
-                        <Link to='/register' className="btn flex-1 text-xl">Signup</Link>
+                        {
+                            user ? <a
+                                onClick={handelLogout}
+                                className="btn flex-1 text-xl">Logout</a> :
+                                <Link to='/register' className="btn flex-1 text-xl">Signup</Link>
+                        }
                         <Link to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></Link>
                     </div>
                 </div>

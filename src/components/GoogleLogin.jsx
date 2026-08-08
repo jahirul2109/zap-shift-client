@@ -1,18 +1,22 @@
 import React from 'react'
 import useAuth from '../hook/useAuth'
 import { GoogleAuthProvider } from 'firebase/auth'
+import { useNavigate } from 'react-router'
 
-export const GoogleLogin = () => {
-    const {socialLogin} = useAuth()
+export const GoogleLogin = ({ state }) => {
+    const navigate = useNavigate();
+    const from = state ? state : "/";
+    console.log(state)
+    const { socialLogin } = useAuth()
     const googleProvider = new GoogleAuthProvider();
-    const handelLogin =()=> {
+    const handelLogin = () => {
         socialLogin(googleProvider)
-        .then(res => {
-            const user = res
-        })
-        .catch(err=> {
-            console.log(err.message)
-        })
+            .then(res => {
+                navigate(from)
+            })
+            .catch(err => {
+                console.log(err.message)
+            })
     }
     return (
         <div className='text-center space-y-4'>
