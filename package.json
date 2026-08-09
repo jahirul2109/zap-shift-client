@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/react-query": "^5.101.4",
     "axios": "^1.19.0",
     "firebase": "^12.17.1",
     "install": "^0.13.0",
@@ -21,6 +22,7 @@
     "react-icons": "^5.7.0",
     "react-leaflet": "^5.0.0",
     "react-router": "^8.3.0",
+    "sweetalert2": "^11.26.25",
     "swiper": "^14.0.7"
   },
   "devDependencies": {
