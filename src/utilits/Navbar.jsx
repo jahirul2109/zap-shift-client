@@ -34,9 +34,17 @@ const Navbar = () => {
             to='/send-parcel'
             className=''
             onClick={() => setMenu(false)} >Send Parcel</Link>
+        {
+            user && <>
+                <Link
+                    to='/dashboard/my-parcel'
+                    className=''
+                    onClick={() => setMenu(false)} >My Parcel</Link>
+            </>
+        }
     </>
     return (
-        <nav className='  bg-white/30 backdrop-blur-lg py-4 px-6 rounded-2xl sticky top-0 z-30 w-full '>
+        <nav className='  bg-white/50 backdrop-blur-lg py-4 px-6 rounded-2xl sticky top-0 z-30 w-full '>
             <div className='flex justify-between items-center'>
                 {/* Righ site logo and name  */}
                 <Logo></Logo>
@@ -67,7 +75,7 @@ const Navbar = () => {
             </div>
             <div className={`
                 md:hidden
-                overflow-hidden transition-all duration-300 ease-in-out ${menu ? "opacity-100 max-h-60 my-4" : "opacity-0 max-h-0"}
+                overflow-hidden transition-all duration-300 ease-in-out ${menu ? "opacity-100 max-h-80 my-4" : "opacity-0 max-h-0"}
                 `}>
                 <div className='flex flex-col gap-3'>
                     {

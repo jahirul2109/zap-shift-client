@@ -10,6 +10,10 @@ import PrivateRoute from "./PrivateRoute";
 import { Login } from "../pages/Auth/login_page/Login";
 import { Register } from "../pages/Auth/register_page/Register";
 import { Forgot } from "../pages/Auth/forgot_page/Forgot";
+import { Dashboardlayout } from "../layout/Dashboardlayout";
+import MyParcel from "../pages/Dashboard/MyParcel";
+import { PaymentSuccess } from "../pages/Dashboard/PaymentSuccess";
+import { PaymentCancel } from "../pages/Dashboard/PaymentCancel";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +58,24 @@ const router = createBrowserRouter([
                 path: "forget_password",
                 Component: Forgot
             }
+        ]
+    },
+    {
+        path : "dashboard",
+        element : <PrivateRoute> <Dashboardlayout></Dashboardlayout> </PrivateRoute>,
+        children : [
+            {
+                path : "my-parcel",
+                Component: MyParcel
+            }, 
+            {
+                path : 'payment-success',
+                Component : PaymentSuccess
+            }, 
+            {
+                path : 'payment-cancel',
+                Component : PaymentCancel
+            }, 
         ]
     },
     {

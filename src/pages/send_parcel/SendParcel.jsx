@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
     FiUser,
@@ -6,15 +6,23 @@ import {
     FiMapPin,
 } from "react-icons/fi";
 import { useLoaderData } from "react-router";
+import useAuth from "../../hook/useAuth";
+import Swal from "sweetalert2";
+import { useAxiousSecoure } from "../../hook/useAxiousSecoure";
 
 const SendParcel = () => {
+    const { user } = useAuth();
     const data = useLoaderData();
     const { handleSubmit, reset, register, watch, formState: { errors } } = useForm()
-    // console.log(data)
-    const regionDuplicate = data.map(d => d.region);
-    const regions = [...new Set(regionDuplicate)];
     const selectSenderRegion = watch("senderRegion")
     const selectReciverRegion = watch("reciverRegion")
+    const parcelType = watch("parcelType")
+
+    const axiousInstence = useAxiousSecoure()
+
+
+    const regionDuplicate = data.map(d => d.region);
+    const regions = [...new Set(regionDuplicate)];
 
     const handelDristictSelect = (region) => {
         const regionBaseDistrict = data.filter(d => d.region === region);
@@ -29,27 +37,99 @@ const SendParcel = () => {
         const exrtaWeight = weight - 3;
 
         let cost = 0;
+        let deliveryCost = 0;
+        let overWeightCost = 0;
+        let extraCost = 0;
+
         if (isDocument) {
-            cost = isSameDistrict ? 60 : 80;
+            deliveryCost = isSameDistrict ? 60 : 80;
+            cost = deliveryCost;
+            
         } else {
             if (weight < 3) {
-                cost = isSameDistrict ? 110 : 150;
+                deliveryCost = isSameDistrict ? 110 : 150;
+                cost =  deliveryCost;
             }
             else {
-                const charge = isSameDistrict ? 110 : 150;
-                const extraCharge = isSameDistrict ? exrtaWeight * 40 : exrtaWeight * 40 + 40;
-                cost = charge + extraCharge;
+                deliveryCost = isSameDistrict ? 110 : 150;
+                overWeightCost = exrtaWeight * 40 ;
+                if(!isSameDistrict) {
+                    extraCost = 40 
+                }
+                cost = deliveryCost + overWeightCost + extraCost; 
             }
         }
+        formData.cost = cost ; 
+        formData.payment= 'pay'
+        console.log("cost", cost , "deliveryCost", deliveryCost)
+        Swal.fire({
+            title: "Are you agree this cost?",
+            html: `
+    <div style="text-align: left;">
+      <table style="width: 100%; border-collapse: collapse;">
+        
+        <tr>
+          <td style="padding: 10px 0; border-bottom: 1px solid #eee;">
+            Delivery Charge
+          </td>
+          <td style="padding: 10px 0; text-align: right; border-bottom: 1px solid #eee;">
+            ৳${deliveryCost}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0; border-bottom: 1px solid #eee;">
+            Over Weight Charge
+          </td>
+          <td style="padding: 10px 0; text-align: right; border-bottom: 1px solid #eee;">
+            ৳${overWeightCost}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0; border-bottom: 1px solid #eee;">
+            Extra Charge 
+          </td>
+          <td style="padding: 10px 0; text-align: right; border-bottom: 1px solid #eee;">
+            ৳${extraCost}
+          </td>
+        </tr>
 
-        console.log("cost", cost)
+        <tr>
+          <td style="padding: 12px 0; font-weight: 700;">
+            Total Amount
+          </td>
+          <td style="padding: 12px 0; text-align: right; font-weight: 700;">
+            ৳${cost}
+          </td>
+        </tr>
 
+      </table>
+    </div>
+  `,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, agree it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiousInstence.post("/parcels", formData)
+                    .then(res => {
+                        if (res.data.acknowledged) {
+                            Swal.fire({
+                                title: "Done!",
+                                text: "Rider is comming soon.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+
+        });
 
     }
     return (
         // <div className="min-h-screen bg-gray-100 ">
         <div className=" my-10 mx-auto bg-white rounded-2xl p-6 md:p-10">
-
             {/* Heading */}
             <h1 className="text-3xl font-bold text-[#073b43]">
                 Send A Parcel
@@ -113,8 +193,8 @@ const SendParcel = () => {
 
                             <div>
                                 <label className="label">
-                                    <span className="label-text">
-                                        Parcel Weight (KG)
+                                    <span className="label-text flex">
+                                        Parcel Weight (KG) {parcelType === "document" ? "" : <span className="text-xl text-red-600">*</span>}
                                     </span>
                                 </label>
 
@@ -123,7 +203,7 @@ const SendParcel = () => {
                                     placeholder="Parcel Weight (KG)"
                                     className="input input-bordered w-full"
                                     {...register("weight", {
-                                        required: "Weight is Must be Required", min: {
+                                        required: parcelType === "document" ? false : "Weight is Must be Required", min: {
                                             value: 1,
                                             message: "Weight is Must be Positive"
                                         }
@@ -167,6 +247,7 @@ const SendParcel = () => {
                                     <input
                                         type="text"
                                         placeholder="SenderName"
+                                        defaultValue={user.displayName}
                                         className="input input-bordered w-full pl-10"
                                         {...register("senderName")}
                                     />
@@ -178,7 +259,7 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Address
+                                        Pickup Address
                                     </span>
                                 </label>
 
@@ -190,6 +271,26 @@ const SendParcel = () => {
                                         placeholder="Address"
                                         className="input input-bordered w-full pl-10"
                                         {...register("senderAddress")}
+                                    />
+                                </div>
+                            </div>
+                            {/* Sender Email */}
+                            <div>
+                                <label className="label">
+                                    <span className="label-text">
+                                        Sender Email
+                                    </span>
+                                </label>
+
+                                <div className="relative">
+                                    <FiMapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+
+                                    <input
+                                        type="email"
+                                        placeholder="Email address"
+                                        className="input input-bordered w-full pl-10"
+                                        defaultValue={user.email}
+                                        {...register("senderEmail")}
                                     />
                                 </div>
                             </div>
@@ -328,6 +429,26 @@ const SendParcel = () => {
                                         placeholder="Address"
                                         className="input input-bordered w-full pl-10"
                                         {...register("reciverAdderss")}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Reciver Email */}
+                            <div>
+                                <label className="label">
+                                    <span className="label-text">
+                                        Reciver Email
+                                    </span>
+                                </label>
+
+                                <div className="relative">
+                                    <FiMapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+
+                                    <input
+                                        type="email"
+                                        placeholder="Email address"
+                                        className="input input-bordered w-full pl-10"
+                                        {...register("reciverEmail")}
                                     />
                                 </div>
                             </div>
