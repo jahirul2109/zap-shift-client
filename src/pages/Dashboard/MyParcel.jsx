@@ -18,11 +18,11 @@ const MyParcel = () => {
             return res.data
         }
     })
-    console.log(error , parcels , isLoading)
-    if(isLoading) {
+    console.log(error, parcels, isLoading)
+    if (isLoading) {
         return <div>Loading.........</div>
     }
-    if(error) {
+    if (error) {
         return <ErrorPage></ErrorPage>
     }
 
@@ -85,7 +85,13 @@ const MyParcel = () => {
                                 <th className='text-center'>{i + 1}</th>
                                 <td className='text-center'>{parcel.parcelName}</td>
                                 <td className='text-center'>{parcel.cost}</td>
-                                <td className='text-center'><button onClick={() => handelPayment(parcel)} className={` btn ${parcel.payment === "paid" ? "text-green-600" : "bg-primary"}`}>{ parcel.payment}</button></td>
+                                <td className='text-center'>
+                                    {parcel.payment === "paid" ?
+                                        <button className='btn text-green-500'>{parcel.payment}</button> :
+
+                                        <button onClick={() => handelPayment(parcel)} className={` btn bg-primary`}>{parcel.payment}</button>
+                                    }
+                                </td>
                                 <td>
                                     <div className='flex justify-center items-center'>
                                         <button
