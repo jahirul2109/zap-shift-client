@@ -5,7 +5,7 @@ import errorImg from '../assets/error.svg'
 
 const ErrorPage = () => {
     return (
-        <div className=' my-5 w-11/12 mx-auto space-y-4'>
+        <div className='  w-11/12 mx-auto space-y-4'>
             <div>
                 <Logo></Logo>
             </div>

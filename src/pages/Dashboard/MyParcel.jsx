@@ -6,6 +6,7 @@ import { FaRegTrashCan } from 'react-icons/fa6';
 import { MdOutlinePageview } from 'react-icons/md';
 import { FiEdit } from 'react-icons/fi';
 import Swal from 'sweetalert2';
+import ErrorPage from '../../utilits/ErrorPage';
 
 const MyParcel = () => {
     const { user } = useAuth();
@@ -17,7 +18,13 @@ const MyParcel = () => {
             return res.data
         }
     })
-
+    console.log(error , parcels , isLoading)
+    if(isLoading) {
+        return <div>Loading.........</div>
+    }
+    if(error) {
+        return <ErrorPage></ErrorPage>
+    }
 
     const handelPayment = async (parcel) => {
         const paymantInfo = {
@@ -74,7 +81,7 @@ const MyParcel = () => {
                     <tbody className=''>
                         {/* row 1 */}
                         {
-                            parcels.map((parcel, i) => <tr key={parcel._id}>
+                            parcels?.map((parcel, i) => <tr key={parcel._id}>
                                 <th className='text-center'>{i + 1}</th>
                                 <td className='text-center'>{parcel.parcelName}</td>
                                 <td className='text-center'>{parcel.cost}</td>
