@@ -7,7 +7,8 @@ export const PaymentSuccess = () => {
     const [searchParams] = useSearchParams();
     const [paymentInfo, setPaymentInfo] = useState({})
     const sessionId = searchParams.get("session_id");
-    console.log(sessionId);
+    console.log(paymentInfo.TransactionId);
+    console.log(paymentInfo)
     useEffect(() => {
         axiosInstence.patch(`/payment-verification?session_id=${sessionId}`)
             .then(res => {
@@ -18,7 +19,7 @@ export const PaymentSuccess = () => {
                 })
             })
     }, [sessionId, axiosInstence])
-    return (
+    return ( 
         <div>
             <h1 className="text-xl">Payment Successfull</h1>
             <p>Transaction ID : <span className='text-blue underline'> {paymentInfo.TransactionId}</span></p>

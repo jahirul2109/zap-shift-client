@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsBox } from 'react-icons/bs'
-import { FaBoxOpen } from 'react-icons/fa'
+import { FaBoxOpen, FaHistory } from 'react-icons/fa'
 import { NavLink, Outlet } from 'react-router'
 
 export const Dashboardlayout = () => {
@@ -43,6 +43,13 @@ export const Dashboardlayout = () => {
                 {/* Parcel icon */}
                 <BsBox />
                 <span className="is-drawer-close:hidden">My Parcel</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/payment-history" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
+                {/* Parcel icon */}
+                <FaHistory />
+                <span className="is-drawer-close:hidden">Payment History</span>
               </NavLink>
             </li>
 
