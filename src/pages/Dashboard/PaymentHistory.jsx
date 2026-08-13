@@ -16,12 +16,38 @@ export const PaymentHistory = () => {
     console.log(data)
     return (
         <div>
-            <h1>payment-info</h1>
-            <div>
-                {
-                    data.map(result => <h1 key={result._id}>{result.trackingId} || {result.parcelName} || {result.paymentIntent}</h1>)
-                }
+            <div className="overflow-x-auto">
+                <table className="table">
+                    {/* head */}
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Name</th>
+                            <th>Cost</th>
+                            <th>Tracking Id</th>
+                            <th>Transaction Id</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* row 1 */}
+                        {
+                            data.map((result , index) =>
+                                <tr key = {result._id}>
+                                    <th>{index + 1}</th>
+                                    <td>{result.parcelName}</td>
+                                    <td>{result.cost}</td>
+                                    <td>{result.trackingId}</td>
+                                    <td>{result.paymentIntent}</td>
+                                    <td>{result.paidAt}</td>
+                                </tr>)
+                        }
+
+                        {/* row 2 */}
+                    </tbody>
+                </table>
             </div>
+
         </div>
     )
 }

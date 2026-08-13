@@ -4,9 +4,12 @@ import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5'
 import { useForm } from 'react-hook-form'
 import useAuth from '../../../hook/useAuth'
 import { GoogleLogin } from '../../../components/GoogleLogin'
+import { useAxiousSecoure } from '../../../hook/useAxiousSecoure'
+import Swal from 'sweetalert2'
 
 export const Login = () => {
     const { loginWithEmailPassword } = useAuth();
+    const axiousInstence = useAxiousSecoure();
     const [showPassword, setShowPassword] = useState(false)
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,8 +21,30 @@ export const Login = () => {
         const { email, pass } = data;
         loginWithEmailPassword(email, pass)
             .then(result => {
-                console.log(result)
+                const userInfo = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photoURL: result.user.photoURL
+                }
+                axiousInstence.post("/users", userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                title: "Logged in Successfully !",
+                                icon: "success",
+                                draggable: true
+                            });
+                        }
+                    })
                 navigate(from)
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: `${err.message}`
+                });
             })
     }
     return (

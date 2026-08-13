@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import useAuth from '../../../hook/useAuth'
 import { GoogleLogin } from '../../../components/GoogleLogin'
+import { useAxiousSecoure } from '../../../hook/useAxiousSecoure'
+import Swal from 'sweetalert2'
 
 export const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { createUser, profileUpdate } = useAuth()
-    const location = useLocation()
+    const axiosIntence = useAxiousSecoure();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state || "/";
     console.log(location)
     // use react-hook-form
     const { register, handleSubmit, reset } = useForm()
@@ -29,11 +34,30 @@ export const Register = () => {
                 await axios.post(imageBB_Api_Url, formData)
                     .then(res => {
                         console.log("img url", res.data.data.url)
+                        const userImg = res.data.data.display_url;
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            photoURL: userImg,
+                        }
                         const profile = {
                             displayName: data.name,
-                            photoURL: res.data.data.display_url
+                            photoURL: userImg
                         }
-
+                        axiosIntence.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res.data)
+                                if (res.data.insertedId) {
+                                    Swal.fire({
+                                        title: "Created Account Successfully !",
+                                        icon: "success",
+                                        draggable: true
+                                    });
+                                }
+                            })
+                            .catch (err=> {
+                                console.log(err.message)
+                            })
                         // update profile
                         profileUpdate(profile)
                             .then(() => {
@@ -44,10 +68,17 @@ export const Register = () => {
                             })
                     })
                 // console.log(res)
+                navigate(from)
                 reset();
             })
             .catch(err => {
                 console.log(err.message)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: `${err.message}`
+                });
             })
     }
     // create user without hook-form
