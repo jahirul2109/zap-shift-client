@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure'
 import useAuth from '../../hook/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
 export const PaymentHistory = () => {
     const axiousInstence = useAxiousSecoure();
-    const [data, setData] = useState([])
     const { user } = useAuth();
 
-    useEffect(() => {
-        axiousInstence.get(`/payment-info?email=${user.email}`)
-            .then(res => {
-                setData(res.data)
-            })
-    }, [])
-    console.log(data)
+    // useEffect(() => {
+    //     axiousInstence.get(`/payment-info?email=${user.email}`)
+    //         .then(res => {
+    //             setData(res.data)
+    //         })
+    // }, [])
+    // console.log(data)
+     const { data: parcelInfo = [], isLoading, error, refetch } = useQuery({
+        queryKey : ["parcelInfo", user.email],
+        queryFn : async ()=> {
+            const result = await axiousInstence.get(`/payment-info?email=${user.email}`)
+            return result.data;
+        }
+     })
     return (
         <div>
             <div className="overflow-x-auto">
@@ -32,7 +39,7 @@ export const PaymentHistory = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            data.map((result , index) =>
+                            parcelInfo.map((result , index) =>
                                 <tr key = {result._id}>
                                     <th>{index + 1}</th>
                                     <td>{result.parcelName}</td>
