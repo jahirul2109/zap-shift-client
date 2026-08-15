@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, pass)
     }
 
-    const profileUpdate = (profile) => {
-        return updateProfile(user.currentUser, profile)
+    const profileUpdate = ( user,profile) => {
+        return updateProfile(user, profile)
     }
     const logout = () => {
         setLoading(true)

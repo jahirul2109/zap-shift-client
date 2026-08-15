@@ -27,9 +27,12 @@ const Navbar = () => {
         <Link
             className=''
             onClick={() => setMenu(false)} to="/coverage">Coverage</Link>
-        <Link
-            className=''
-            onClick={() => setMenu(false)} >Be a Rider</Link>
+        {
+            user && <Link
+                to='/riders'
+                className=''
+                onClick={() => setMenu(false)} >Be a Rider</Link>
+        }
         <Link
             to='/send-parcel'
             className=''

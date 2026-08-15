@@ -15,6 +15,8 @@ import MyParcel from "../pages/Dashboard/MyParcel";
 import { PaymentSuccess } from "../pages/Dashboard/PaymentSuccess";
 import { PaymentCancel } from "../pages/Dashboard/PaymentCancel";
 import { PaymentHistory } from "../pages/Dashboard/PaymentHistory";
+import beARider from "../pages/riders_page/BeARider";
+import BeARider from "../pages/riders_page/BeARider";
 
 const router = createBrowserRouter([
     {
@@ -37,8 +39,13 @@ const router = createBrowserRouter([
             },
             {
                 path: "send-parcel",
-                loader : ()=> fetch('/warehouses.json') ,
+                loader: () => fetch('/warehouses.json'),
                 element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>
+            },
+            {
+                path: "riders",
+                loader: () => fetch('/warehouses.json'),
+                Component: BeARider
             }
         ]
     },
@@ -62,24 +69,24 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path : "dashboard",
-        element : <PrivateRoute> <Dashboardlayout></Dashboardlayout> </PrivateRoute>,
-        children : [
+        path: "dashboard",
+        element: <PrivateRoute> <Dashboardlayout></Dashboardlayout> </PrivateRoute>,
+        children: [
             {
-                path : "my-parcel",
+                path: "my-parcel",
                 Component: MyParcel
-            }, 
+            },
             {
-                path : 'payment-success',
-                Component : PaymentSuccess
-            }, 
+                path: 'payment-success',
+                Component: PaymentSuccess
+            },
             {
-                path : 'payment-cancel',
-                Component : PaymentCancel
-            }, 
+                path: 'payment-cancel',
+                Component: PaymentCancel
+            },
             {
-                path : 'payment-history',
-                Component : PaymentHistory
+                path: 'payment-history',
+                Component: PaymentHistory
             }
         ]
     },

@@ -15,71 +15,66 @@ export const Register = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state || "/";
-    console.log(location)
     // use react-hook-form
-    const { register, handleSubmit, reset } = useForm()
-
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const userSubmitedInfo = async (data) => {
-        const profileImg = data.photo[0];
+        try {
+            // console.time("create")
+            const result = await createUser(data.email, data.pass)
+            const user = await result.user;
+            const profileImg = data.photo[0];
+            // console.timeEnd("create")
 
-        await createUser(data.email, data.pass)
-            .then(async (res) => {
+            // coverted formaData 
+            const formData = new FormData()
+            formData.append("image", profileImg);
+            const imageBB_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGEBB_KEY}`
 
-                // coverted formaData 
-                const formData = new FormData()
-                formData.append("image", profileImg);
-                const imageBB_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGEBB_KEY}`
+            // store photo
+            // console.time("imgBB")
+            const imageReslt = await axios.post(imageBB_Api_Url, formData);
+            // console.log("imgeresult", imageReslt)
+            const userImg = imageReslt.data.data.url;
+            // console.timeEnd("imgBB")
 
-                // store photo
-                await axios.post(imageBB_Api_Url, formData)
-                    .then(res => {
-                        console.log("img url", res.data.data.url)
-                        const userImg = res.data.data.display_url;
-                        const userInfo = {
-                            name: data.name,
-                            email: data.email,
-                            photoURL: userImg,
-                        }
-                        const profile = {
-                            displayName: data.name,
-                            photoURL: userImg
-                        }
-                        axiosIntence.post('/users', userInfo)
-                            .then(res => {
-                                console.log(res.data)
-                                if (res.data.insertedId) {
-                                    Swal.fire({
-                                        title: "Created Account Successfully !",
-                                        icon: "success",
-                                        draggable: true
-                                    });
-                                }
-                            })
-                            .catch (err=> {
-                                console.log(err.message)
-                            })
-                        // update profile
-                        profileUpdate(profile)
-                            .then(() => {
-                                console.log("updeted profile")
-                            })
-                            .catch(err => {
-                                console.log(err.message)
-                            })
-                    })
-                // console.log(res)
-                navigate(from)
-                reset();
-            })
-            .catch(err => {
-                console.log(err.message)
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Something went wrong!",
-                    footer: `${err.message}`
-                });
-            })
+            const profile = {
+                displayName: data.name,
+                photoURL: userImg
+            }
+
+            // update profile
+            // console.time("update")
+            await profileUpdate(user, profile)
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                photoURL: userImg,
+            }
+            // console.timeEnd("update")
+
+            // post  user data in database
+            // console.time("db")
+            const dbResult = await axiosIntence.post('/users', userInfo);
+            // console.timeEnd("db")
+            Swal.fire({
+                title: "Created Account Successfully !",
+                icon: "success",
+                draggable: true
+            });
+
+            // console.log(res)
+            navigate(from)
+            reset();
+
+        }
+        catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: `${err.message}`
+            });
+        }
     }
     // create user without hook-form
     // const handelRegiseter = (e) => {
@@ -102,7 +97,7 @@ export const Register = () => {
             <form onSubmit={handleSubmit(userSubmitedInfo)} className="fieldset">
                 <label htmlFor="avatar" className="cursor-pointer">
                     <img
-                        src="https://i.ibb.co/4pDNDk1/avatar.png"
+                        src={`https://i.ibb.co/4pDNDk1/avatar.png`}
                         className="w-12 h-12 rounded-full border object-cover"
                         alt="avatar"
                     />
@@ -117,9 +112,10 @@ export const Register = () => {
                     //     console.log(e.target.files)
                     //     console.log(e.target.files[0])
                     // }}
-                    {...register("photo")}
+                    {...register("photo", { required: "Photo is required" })}
                     className="hidden"
                 />
+                {errors.photo && <p className='text-red-500'>{errors.photo.message}</p>}
                 {/* For user name */}
                 <label className="label ">Name</label>
                 <input

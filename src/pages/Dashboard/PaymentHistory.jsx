@@ -14,13 +14,13 @@ export const PaymentHistory = () => {
     //         })
     // }, [])
     // console.log(data)
-     const { data: parcelInfo = [], isLoading, error, refetch } = useQuery({
-        queryKey : ["parcelInfo", user.email],
-        queryFn : async ()=> {
+    const { data: parcelInfo = [], isLoading, error, refetch } = useQuery({
+        queryKey: ["parcelInfo", user.email],
+        queryFn: async () => {
             const result = await axiousInstence.get(`/payment-info?email=${user.email}`)
             return result.data;
         }
-     })
+    })
     return (
         <div>
             <div className="overflow-x-auto">
@@ -39,8 +39,8 @@ export const PaymentHistory = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            parcelInfo.map((result , index) =>
-                                <tr key = {result._id}>
+                            parcelInfo.map((result, index) =>
+                                <tr key={result._id}>
                                     <th>{index + 1}</th>
                                     <td>{result.parcelName}</td>
                                     <td>{result.cost}</td>
