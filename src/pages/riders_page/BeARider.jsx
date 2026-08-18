@@ -4,18 +4,22 @@ import { FaMotorcycle } from "react-icons/fa";
 import { useLoaderData } from "react-router";
 import ridersImg from '../../assets/riders.svg'
 import useAuth from "../../hook/useAuth";
+import { useAxiousSecoure } from "../../hook/useAxiousSecoure";
+import Swal from "sweetalert2";
 
 const BeARider = () => {
     const { user } = useAuth();
+    const axiousInstence = useAxiousSecoure();
     const data = useLoaderData();
     const duplicateRigion = data.map(region => region.region);
     const regions = [...new Set(duplicateRigion)];
-    console.log("rigon", regions)
-    console.log(data)
+    // console.log("rigon", regions)
+    // console.log(data)
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors },
     } = useForm();
     const selectedRigeion = watch("region")
@@ -23,7 +27,37 @@ const BeARider = () => {
     const districts = data.filter(res => res.region === selectedRigeion);
 
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
+        axiousInstence.post('/riders', data)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.acknowledged) {
+                    Swal.fire({
+                        title: "Application Submitted Successfully !",
+                        text : "Thank you for applying. Your rider application is currently pending. We'll get in touch with you within 3 days",
+                        icon: "success",
+                        draggable: true
+                    });
+                    reset()
+                }
+            })
+            .catch(err => {
+                console.log(err.response?.status)
+                if (err.response?.status === 409) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Already Aplied",
+                        text: `${err.response.data.message}`,
+                    });
+                    return;
+                }
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: `${err.message}`
+                });
+            })
     };
 
     return (
@@ -95,7 +129,7 @@ const BeARider = () => {
                                     type="email"
                                     placeholder="Your Email"
                                     defaultValue={user?.email}
-                                    readOnly
+                                    // readOnly
                                     className={`input input-bordered w-full ${errors.email ? "input-error" : ""
                                         }`}
                                     {...register("email", {
@@ -270,7 +304,7 @@ const BeARider = () => {
 
                                 {errors.bikeRegistration && (
                                     <p className="text-error text-xs mt-1">
-                                        {errors.nid.message}
+                                        {errors.bikeRegistration.message}
                                     </p>
                                 )}
                             </div>
@@ -288,13 +322,13 @@ const BeARider = () => {
                                     type="text"
                                     placeholder="Your Driving License Number"
                                     className="input input-bordered w-full"
-                                    {...register("drivingLicense"), {
+                                    {...register("drivingLicense", {
                                         required: "Driving License is Must Required"
-                                    }}
+                                    })}
                                 />
                                 {errors.drivingLicense && (
                                     <p className="text-error text-xs mt-1">
-                                        {errors.nid.message}
+                                        {errors.drivingLicense.message}
                                     </p>
                                 )}
                             </div>

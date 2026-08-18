@@ -5,13 +5,14 @@ import {
     FiPhone,
     FiMapPin,
 } from "react-icons/fi";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../hook/useAuth";
 import Swal from "sweetalert2";
 import { useAxiousSecoure } from "../../hook/useAxiousSecoure";
 
 const SendParcel = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const data = useLoaderData();
     const { handleSubmit, reset, register, watch, formState: { errors } } = useForm()
     const selectSenderRegion = watch("senderRegion")
@@ -29,6 +30,7 @@ const SendParcel = () => {
         const districts = regionBaseDistrict.map(district => district.district)
         return districts
     }
+
     const handelForm = (formData) => {
         console.log(formData)
         const isDocument = formData.parcelType === "document";
@@ -44,24 +46,24 @@ const SendParcel = () => {
         if (isDocument) {
             deliveryCost = isSameDistrict ? 60 : 80;
             cost = deliveryCost;
-            
+
         } else {
             if (weight < 3) {
                 deliveryCost = isSameDistrict ? 110 : 150;
-                cost =  deliveryCost;
+                cost = deliveryCost;
             }
             else {
                 deliveryCost = isSameDistrict ? 110 : 150;
-                overWeightCost = exrtaWeight * 40 ;
-                if(!isSameDistrict) {
-                    extraCost = 40 
+                overWeightCost = exrtaWeight * 40;
+                if (!isSameDistrict) {
+                    extraCost = 40
                 }
-                cost = deliveryCost + overWeightCost + extraCost; 
+                cost = deliveryCost + overWeightCost + extraCost;
             }
         }
-        formData.cost = cost ; 
-        formData.payment= 'pay'
-        console.log("cost", cost , "deliveryCost", deliveryCost)
+        formData.cost = cost;
+        formData.payment = 'pay'
+        console.log("cost", cost, "deliveryCost", deliveryCost)
         Swal.fire({
             title: "Are you agree this cost?",
             html: `
@@ -115,6 +117,7 @@ const SendParcel = () => {
                 axiousInstence.post("/parcels", formData)
                     .then(res => {
                         if (res.data.acknowledged) {
+                            navigate('/dashboard/my-parcel')
                             Swal.fire({
                                 title: "Done!",
                                 text: "Rider is comming soon.",

@@ -42,7 +42,7 @@ const Navbar = () => {
                 <Link
                     to='/dashboard/my-parcel'
                     className=''
-                    onClick={() => setMenu(false)} >My Parcel</Link>
+                    onClick={() => setMenu(false)} >Dashboard</Link>
             </>
         }
     </>

@@ -50,17 +50,18 @@ const MyParcel = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
-            refetch()
-            axiousInstence.delete(`/parcels/${parcel._id}`)
-                .then(res => {
-                    if (res.data.deletedCount > 0) {
-                        if (result.isConfirmed) Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    }
-                })
+            if (result.isConfirmed)
+                axiousInstence.delete(`/parcels/${parcel._id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
         });
     }
     console.log(parcels.length)

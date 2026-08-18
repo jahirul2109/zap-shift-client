@@ -17,6 +17,9 @@ import { PaymentCancel } from "../pages/Dashboard/PaymentCancel";
 import { PaymentHistory } from "../pages/Dashboard/PaymentHistory";
 import beARider from "../pages/riders_page/BeARider";
 import BeARider from "../pages/riders_page/BeARider";
+import { RidersApproval } from "../pages/Dashboard/RidersApproval";
+import UserManagement from "../pages/Dashboard/UserManagement";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +90,18 @@ const router = createBrowserRouter([
             {
                 path: 'payment-history',
                 Component: PaymentHistory
+            },
+            {
+                path: "rider-approver",
+                element: <AdminRoute>
+                    <RidersApproval></RidersApproval>
+                </AdminRoute>
+            },
+            {
+                path: "user-management",
+                element: <AdminRoute>
+                    <UserManagement></UserManagement>
+                </AdminRoute>
             }
         ]
     },

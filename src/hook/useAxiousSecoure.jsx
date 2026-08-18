@@ -24,13 +24,13 @@ export const useAxiousSecoure = () => {
     const responseInterceptors = axiousSecoure.interceptors.response.use(res => {
       return res
     }, (err) => {
-      const status = err.status;
-      if (status === 401 || 403) {
+      const status = err.response?.status;
+      if (status === 401 || status === 403) {
         logout()
           .then(res => {
             navigate("/login")
           })
-      }
+      } 
       return Promise.reject(err);
     })
     return ()=> {

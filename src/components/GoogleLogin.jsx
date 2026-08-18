@@ -2,8 +2,11 @@ import React from 'react'
 import useAuth from '../hook/useAuth'
 import { GoogleAuthProvider } from 'firebase/auth'
 import { useNavigate } from 'react-router'
+import { useAxiousSecoure } from '../hook/useAxiousSecoure'
+import Swal from 'sweetalert2'
 
 export const GoogleLogin = ({ state }) => {
+    const axiousInstence = useAxiousSecoure();
     const navigate = useNavigate();
     const from = state ? state : "/";
     console.log(state)
@@ -12,6 +15,22 @@ export const GoogleLogin = ({ state }) => {
     const handelLogin = () => {
         socialLogin(googleProvider)
             .then(res => {
+                const user = res.user;
+                const userInfo = {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL
+                }
+                axiousInstence.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                title: "Created Account Successfully !",
+                                icon: "success",
+                                draggable: true
+                            });
+                        }
+                    })
                 navigate(from)
             })
             .catch(err => {
