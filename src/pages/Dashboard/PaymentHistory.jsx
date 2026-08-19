@@ -32,6 +32,7 @@ export const PaymentHistory = () => {
                             <th>Name</th>
                             <th>Cost</th>
                             <th>Tracking Id</th>
+                            <th>Delivery Status</th>
                             <th>Transaction Id</th>
                             <th>Date & Time</th>
                         </tr>
@@ -45,6 +46,7 @@ export const PaymentHistory = () => {
                                     <td>{result.parcelName}</td>
                                     <td>{result.cost}</td>
                                     <td>{result.trackingId}</td>
+                                    <td>{result.deliveryStatus}</td>
                                     <td>{result.paymentIntent}</td>
                                     <td>{result.paidAt}</td>
                                 </tr>)
