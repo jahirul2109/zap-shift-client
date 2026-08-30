@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import useAuth from '../../hook/useAuth'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure';
@@ -7,15 +7,43 @@ import { MdOutlinePageview } from 'react-icons/md';
 import { FiEdit } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import ErrorPage from '../../utilits/ErrorPage';
+import { NavLink } from 'react-router';
 
 const MyParcel = () => {
     const { user } = useAuth();
     const axiousInstence = useAxiousSecoure();
     const { data: parcels = [], isLoading, error, refetch } = useQuery({
-        queryKey: ["parcels", user.email],
+        queryKey: ["parcels", user?.email],
         queryFn: async () => {
-            const res = await axiousInstence.get(`/parcels?email=${user.email}`);
+            const res = await axiousInstence.get(`/parcels?email=${user?.email}`);
             return res.data
+        }
+        ,
+        enabled: !!user?.email
+    })
+    const queryClient = useQueryClient();
+    const deleteParcelMutation = useMutation({
+        mutationFn: async (id) => {
+            const parcel = await axiousInstence.delete(`/parcels/${id}`)
+            return parcel.data
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['parcels', user.email]
+            })
+
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        },
+        onError: () => {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to delete parcel.",
+                icon: "error"
+            });
         }
     })
     console.log(error, parcels, isLoading)
@@ -30,6 +58,7 @@ const MyParcel = () => {
         const paymantInfo = {
             cost: parcel.cost,
             parcelId: parcel._id,
+            trackingId: parcel.trackingId,
             coustomerEmail: parcel.senderEmail,
             parcelName: parcel.parcelName
         }
@@ -51,20 +80,16 @@ const MyParcel = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed)
-                axiousInstence.delete(`/parcels/${parcel._id}`)
-                    .then(res => {
-                        if (res.data.deletedCount > 0) {
-                            refetch()
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Your file has been deleted.",
-                                icon: "success"
-                            });
-                        }
-                    })
+                deleteParcelMutation.mutate(parcel._id)
         });
     }
-    console.log(parcels.length)
+    const formatStatus = (status) => {
+        return status
+            .split("_")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+    };
+    // console.log(parcels.length)
     return (
         <div className='py-10'>
             <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
@@ -74,8 +99,10 @@ const MyParcel = () => {
                         <tr>
                             <th className='text-center'>SL</th>
                             <th className='text-center'>Name</th>
-                            <th className='text-center'>Cost</th>
+                            <th className='text-center'>Ammount</th>
                             <th className='text-center'>Payment Status</th>
+                            <th className='text-center'>Delivery Status</th>
+                            <th className='text-center'>Tracikg Id</th>
                             <th className='text-center'>Action</th>
                         </tr>
                     </thead>
@@ -85,13 +112,19 @@ const MyParcel = () => {
                             parcels?.map((parcel, i) => <tr key={parcel._id}>
                                 <th className='text-center'>{i + 1}</th>
                                 <td className='text-center'>{parcel.parcelName}</td>
-                                <td className='text-center'>{parcel.cost}</td>
+                                <td className='text-center'>${parcel.cost}</td>
                                 <td className='text-center'>
                                     {parcel.payment === "paid" ?
-                                        <button className='btn text-green-500'>{parcel.payment}</button> :
+                                        <button className='btn text-green-500'>{formatStatus(parcel.payment)}</button> :
 
                                         <button onClick={() => handelPayment(parcel)} className={` btn bg-primary`}>{parcel.payment}</button>
                                     }
+                                </td>
+                                <td className='text-center'>{formatStatus(parcel.deliveryStatus)}</td>
+                                <td className='text-center'>
+                                    <NavLink to={`/tarck-parcel/${parcel.trackingId}`}>
+                                        {parcel.trackingId}
+                                    </NavLink>
                                 </td>
                                 <td>
                                     <div className='flex justify-center items-center'>

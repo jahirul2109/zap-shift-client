@@ -15,9 +15,9 @@ export const PaymentHistory = () => {
     // }, [])
     // console.log(data)
     const { data: parcelInfo = [], isLoading, error, refetch } = useQuery({
-        queryKey: ["parcelInfo", user.email],
+        queryKey: ["parcelInfo", user.email, "limit"],
         queryFn: async () => {
-            const result = await axiousInstence.get(`/payment-info?email=${user.email}`)
+            const result = await axiousInstence.get(`/payment-info?email=${user.email}&limit=10`)
             return result.data;
         }
     })
@@ -32,7 +32,6 @@ export const PaymentHistory = () => {
                             <th>Name</th>
                             <th>Cost</th>
                             <th>Tracking Id</th>
-                            <th>Delivery Status</th>
                             <th>Transaction Id</th>
                             <th>Date & Time</th>
                         </tr>
@@ -44,11 +43,10 @@ export const PaymentHistory = () => {
                                 <tr key={result._id}>
                                     <th>{index + 1}</th>
                                     <td>{result.parcelName}</td>
-                                    <td>{result.cost}</td>
+                                    <td>${result.cost}</td>
                                     <td>{result.trackingId}</td>
-                                    <td>{result.deliveryStatus}</td>
                                     <td>{result.paymentIntent}</td>
-                                    <td>{result.paidAt}</td>
+                                    <td>{new Date(result.paidAt).toLocaleString()}</td>
                                 </tr>)
                         }
 

@@ -32,7 +32,7 @@ const SendParcel = () => {
     }
 
     const handelForm = (formData) => {
-        console.log(formData)
+        // console.log(formData)
         const isDocument = formData.parcelType === "document";
         const isSameDistrict = formData.senderDistrict === formData.reciverDistrict;
         const weight = parseFloat(formData.weight);

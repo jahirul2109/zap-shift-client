@@ -4,10 +4,11 @@ import { Navigate, useLocation } from 'react-router';
 import { useRole } from '../hook/useRole';
 
 const AdminRoute = ({ children }) => {
-  const {users , isLoading} = useRole();
+  const { users, isLoading } = useRole();
   const { user, loading } = useAuth();
   const loaction = useLocation();
-  if (loading || isLoading) {
+  console.log(users)
+  if (loading || isLoading || !user) {
     return <div>Loading.........</div>
   }
 

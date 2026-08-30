@@ -15,11 +15,16 @@ import MyParcel from "../pages/Dashboard/MyParcel";
 import { PaymentSuccess } from "../pages/Dashboard/PaymentSuccess";
 import { PaymentCancel } from "../pages/Dashboard/PaymentCancel";
 import { PaymentHistory } from "../pages/Dashboard/PaymentHistory";
-import beARider from "../pages/riders_page/BeARider";
 import BeARider from "../pages/riders_page/BeARider";
 import { RidersApproval } from "../pages/Dashboard/RidersApproval";
 import UserManagement from "../pages/Dashboard/UserManagement";
 import AdminRoute from "./AdminRoute";
+import AssignRiders from "../pages/Dashboard/AssignRiders";
+import PendingOrder from "../pages/Dashboard/PendingOrder";
+import { TrackParcel } from "../pages/Dashboard/TrackParcel";
+import { SearchTrackingId } from "../pages/Dashboard/SearchTrackingId";
+import { UserBaseDashboard } from "../pages/Dashboard/UserBaseDashboard";
+import RiderRoute from "./RiderRoute";
 
 const router = createBrowserRouter([
     {
@@ -48,7 +53,13 @@ const router = createBrowserRouter([
             {
                 path: "riders",
                 loader: () => fetch('/warehouses.json'),
-                Component: BeARider
+                element: <PrivateRoute>
+                    <BeARider></BeARider>
+                </PrivateRoute>
+            },
+            {
+                path: 'tarck-parcel/:id',
+                Component: TrackParcel
             }
         ]
     },
@@ -76,6 +87,10 @@ const router = createBrowserRouter([
         element: <PrivateRoute> <Dashboardlayout></Dashboardlayout> </PrivateRoute>,
         children: [
             {
+                index: true,
+                Component: UserBaseDashboard
+            },
+            {
                 path: "my-parcel",
                 Component: MyParcel
             },
@@ -90,12 +105,32 @@ const router = createBrowserRouter([
             {
                 path: 'payment-history',
                 Component: PaymentHistory
+            }
+            ,
+            {
+                path: 'search-trackingId',
+                Component: SearchTrackingId
+            }
+            ,
+            {
+                path: 'pending-order',
+                element: <RiderRoute>
+                    <PendingOrder></PendingOrder>
+                </RiderRoute>
             },
             {
                 path: "rider-approver",
                 element: <AdminRoute>
                     <RidersApproval></RidersApproval>
                 </AdminRoute>
+            },
+            {
+                path: "rider-assign",
+                element: <AdminRoute>
+                    <AssignRiders></AssignRiders>
+                </AdminRoute>
+
+
             },
             {
                 path: "user-management",

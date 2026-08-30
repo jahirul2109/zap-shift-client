@@ -112,7 +112,8 @@ export const RidersApproval = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Status</th>
-            <th>Region</th>
+            <th>Work Status</th>
+            <th>District</th>
             <th className='text-center'>Actions</th>
           </tr>
         </thead>
@@ -125,9 +126,10 @@ export const RidersApproval = () => {
                 <td>{res.name}</td>
                 <td>{res.email}</td>
                 <td
-                  className={res.status === "apprroved" ? "text-green-500" : "text-red-500"}
-                >{res.status}</td>
-                <td>{res.region}</td>
+                  className={res.status === "apprroved" ? "text-green-500" : "text-red-500"}>
+                  {res.status}</td>
+                <td>{res.workStatus}</td>
+                <td>{res.district}</td>
                 <td className='flex justify-center items-center gap-1 md:gap-2'>
                   <button
                     onClick={() => approveRider(res)}
