@@ -19,23 +19,32 @@ export const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const userSubmitedInfo = async (data) => {
         try {
-            // console.time("create")
-            const result = await createUser(data.email, data.pass)
-            const user = await result.user;
             const profileImg = data.photo[0];
-            // console.timeEnd("create")
+            if (!profileImg) {
+                throw new Error("No profile image selected");
+            }
 
+            if (!(profileImg instanceof File)) {
+                throw new Error("Selected image is not a File");
+            }
             // coverted formaData 
             const formData = new FormData()
             formData.append("image", profileImg);
-            const imageBB_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGEBB_KEY}`
+            const apiKey = import.meta.env.VITE_IMAGEBB_KEY;
 
+            console.log("apiKey", apiKey)
+            console.log("img", profileImg)
+            console.log("imgType", profileImg.type)
+
+            const imageBB_Api_Url = `https://api.imgbb.com/1/upload?key=${apiKey}`
             // store photo
-            // console.time("imgBB")
-            const imageReslt = await axios.post(imageBB_Api_Url, formData);
-            // console.log("imgeresult", imageReslt)
-            const userImg = imageReslt.data.data.url;
-            // console.timeEnd("imgBB")
+            const imageResult = await axios.post(imageBB_Api_Url, formData);
+            console.log("imgeresult", imageResult)
+            const userImg = imageResult.data.data.url;
+
+            // Create Account
+            const result = await createUser(data.email, data.pass)
+            const user = await result.user;
 
             const profile = {
                 displayName: data.name,
@@ -43,17 +52,14 @@ export const Register = () => {
             }
 
             // update profile
-            // console.time("update")
             await profileUpdate(user, profile)
             const userInfo = {
                 name: data.name,
                 email: data.email,
                 photoURL: userImg,
             }
-            // console.timeEnd("update")
 
             // post  user data in database
-            // console.time("db")
             const dbResult = await axiosIntence.post('/users', userInfo);
             // console.timeEnd("db")
             Swal.fire({
@@ -61,20 +67,27 @@ export const Register = () => {
                 icon: "success",
                 draggable: true
             });
+            console.log(profileImg)
 
-            // console.log(res)
             navigate(from)
             reset();
 
         }
-        catch (err) {
+        catch (error) {
+            // console.log("STATUS:", error.response?.status);
+            // console.log("DATA:", error.response?.data);
+            // console.log("MESSAGE:", error.message);
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Something went wrong!",
-                footer: `${err.message}`
+                footer: `${error.message}`
             });
         }
+
+
+
+
     }
     // create user without hook-form
     // const handelRegiseter = (e) => {

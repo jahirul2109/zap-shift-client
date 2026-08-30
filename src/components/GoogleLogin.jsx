@@ -12,30 +12,38 @@ export const GoogleLogin = ({ state }) => {
     console.log(state)
     const { socialLogin } = useAuth()
     const googleProvider = new GoogleAuthProvider();
-    const handelLogin = () => {
-        socialLogin(googleProvider)
-            .then(res => {
-                const user = res.user;
-                const userInfo = {
-                    name: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL
+    const handelLogin = async () => {
+        try {
+            const res = await socialLogin(googleProvider);
+
+            const user = res.user;
+
+            const token = await user.getIdToken();
+
+            const userInfo = {
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL
+            };
+            const result = await axiousInstence.post("/users", userInfo, {
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-                axiousInstence.post('/users', userInfo)
-                    .then(res => {
-                        if (res.data.insertedId) {
-                            Swal.fire({
-                                title: "Created Account Successfully !",
-                                icon: "success",
-                                draggable: true
-                            });
-                        }
-                    })
-                navigate(from)
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+            });
+
+            if (result.data.insertedId) {
+                Swal.fire({
+                    title: "Created Account Successfully!",
+                    icon: "success",
+                    draggable: true
+                });
+            }
+
+            navigate(from);
+        }
+        catch (err) {
+            console.log(err.message)
+        }
     }
     return (
         <div className='text-center space-y-4'>

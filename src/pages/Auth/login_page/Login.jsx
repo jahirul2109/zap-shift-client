@@ -20,22 +20,7 @@ export const Login = () => {
     const handelLogin = (data) => {
         const { email, pass } = data;
         loginWithEmailPassword(email, pass)
-            .then(result => {
-                const userInfo = {
-                    name: result.user.displayName,
-                    email: result.user.email,
-                    photoURL: result.user.photoURL
-                }
-                axiousInstence.post("/users", userInfo)
-                    .then(res => {
-                        if (res.data.insertedId) {
-                            Swal.fire({
-                                title: "Logged in Successfully !",
-                                icon: "success",
-                                draggable: true
-                            });
-                        }
-                    })
+            .then(() => {
                 navigate(from)
             })
             .catch(err => {
