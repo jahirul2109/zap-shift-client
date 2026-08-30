@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router'
+import { NavLink } from 'react-router'
 import { FaArrowCircleRight, FaBarcode, FaBars } from 'react-icons/fa'
 import Logo from '../components/Logo'
-import { IoClose } from 'react-icons/io5'
-import { MdOutlineClose } from 'react-icons/md'
 import { VscCloseCompact } from 'react-icons/vsc'
 import useAuth from '../hook/useAuth'
-
+import './navbar.css'
 const Navbar = () => {
     const { user, logout } = useAuth();
     const handelLogout = () => {
@@ -17,37 +15,39 @@ const Navbar = () => {
     }
     const [menu, setMenu] = useState(false)
     const links = <>
-        <Link to=""
+        <NavLink to=""
             className=''
-            onClick={() => setMenu(false)} >Service</Link>
-        <Link
+            onClick={() => setMenu(false)} >Service</NavLink>
+        <NavLink
             to='/about'
             className=''
-            onClick={() => setMenu(false)} >About</Link>
-        <Link
+            onClick={() => setMenu(false)} >About</NavLink>
+        <NavLink
             className=''
-            onClick={() => setMenu(false)} to="/coverage">Coverage</Link>
-        {
-            user && <Link
+            onClick={() => setMenu(false)} to="/coverage">Coverage</NavLink>
+        {/* {
+            user && <NavLink
                 to='/riders'
                 className=''
-                onClick={() => setMenu(false)} >Be a Rider</Link>
-        }
-        <Link
+                onClick={() => setMenu(false)} >Be a Rider</NavLink>
+        } */}
+        <NavLink
             to='/send-parcel'
             className=''
-            onClick={() => setMenu(false)} >Send Parcel</Link>
+            onClick={() => setMenu(false)} >Send Parcel</NavLink>
         {
             user && <>
-                <Link
-                    to='/dashboard/my-parcel'
+                <NavLink
+                    to='/dashboard'
                     className=''
-                    onClick={() => setMenu(false)} >Dashboard</Link>
+                    onClick={() => setMenu(false)} >Dashboard</NavLink>
             </>
         }
+
     </>
+
     return (
-        <nav className='  bg-white/50 backdrop-blur-lg py-4 px-6 rounded-2xl sticky top-0 z-30 w-full '>
+        <nav className='  bg-white/50 backdrop-blur-lg py-4 px-6 md:rounded-2xl sticky top-0 z-30 w-full '>
             <div className='flex justify-between items-center'>
                 {/* Righ site logo and name  */}
                 <Logo></Logo>
@@ -61,9 +61,9 @@ const Navbar = () => {
                         user ? <a
                             onClick={handelLogout}
                             className="btn flex-1 text-xl">Logout</a> :
-                            <Link to='/register' className="btn flex-1 text-xl">Signup</Link>
+                            <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
                     }
-                    <Link to='/rider_login' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></Link>
+                    <NavLink to='/riders' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
                 </div>
                 <div
                     onClick={() => setMenu(pre => !pre)}
@@ -76,6 +76,8 @@ const Navbar = () => {
 
                 </div>
             </div>
+
+            {/* navbar For mobile device */}
             <div className={`
                 md:hidden
                 overflow-hidden transition-all duration-300 ease-in-out ${menu ? "opacity-100 max-h-80 my-4" : "opacity-0 max-h-0"}
@@ -89,9 +91,9 @@ const Navbar = () => {
                             user ? <a
                                 onClick={handelLogout}
                                 className="btn flex-1 text-xl">Logout</a> :
-                                <Link to='/register' className="btn flex-1 text-xl">Signup</Link>
+                                <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
                         }
-                        <Link to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></Link>
+                        <NavLink to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
                     </div>
                 </div>
             </div>
