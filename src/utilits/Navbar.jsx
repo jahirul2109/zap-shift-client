@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { NavLink } from 'react-router'
 import { FaArrowCircleRight, FaBarcode, FaBars } from 'react-icons/fa'
 import Logo from '../components/Logo'
@@ -7,10 +7,12 @@ import useAuth from '../hook/useAuth'
 import './navbar.css'
 const Navbar = () => {
     const { user, logout } = useAuth();
+    const logutModal = useRef(null)
     const handelLogout = () => {
         logout()
             .then(() => {
                 console.log("user logout Successfully")
+                logutModal.current.close()
             })
     }
     const [menu, setMenu] = useState(false)
@@ -58,12 +60,14 @@ const Navbar = () => {
                 {/* Left site signup / login btn */}
                 <div className='md:flex hidden gap-2 '>
                     {
-                        user ? <a
-                            onClick={handelLogout}
-                            className="btn flex-1 text-xl">Logout</a> :
+                        user ? <> <a
+                            onClick={() => logutModal.current.showModal()}
+                            className="btn flex-1 text-xl">Logout</a>
+
+                            <NavLink to='/riders' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
+                        </> :
                             <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
                     }
-                    <NavLink to='/riders' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
                 </div>
                 <div
                     onClick={() => setMenu(pre => !pre)}
@@ -88,15 +92,30 @@ const Navbar = () => {
                     }
                     <div className='flex justify-between gap-3 items-center'>
                         {
-                            user ? <a
-                                onClick={handelLogout}
-                                className="btn flex-1 text-xl">Logout</a> :
+                            user ? <><a
+                                onClick={() => logutModal.current.showModal()}
+                                className="btn flex-1 text-xl">Logout</a>
+                                <NavLink to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
+
+                            </> :
                                 <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
                         }
-                        <NavLink to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
                     </div>
                 </div>
             </div>
+            <dialog id="my_modal_3" ref={logutModal} className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 className="font-bold text-center text-lg">Are you sure Logout!</h3>
+                    <div className='flex justify-between gap-3 items-center mt-10'>
+                        <button onClick={handelLogout} className='rounded-md cursor-pointer px-3 md:px-5 py-1 md:py-2 bg-primary text-secondary'>Yes</button>
+                        <button onClick={() => logutModal.current.close()} className='rounded-md cursor-pointer px-3 md:px-5 py-1 md:py-2 bg-amber-500 text-secondary'>No</button>
+                    </div>
+                </div>
+            </dialog>
         </nav>
     )
 }

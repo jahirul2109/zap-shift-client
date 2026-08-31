@@ -36,7 +36,7 @@ const PendingOrder = () => {
     console.log(order)
     return (
         <div>
-            <h1 className='md:text-5xl text-2xl text-center font-bold text-secondary'>Order remaning {order?.length}</h1>
+            <h1 className='md:text-5xl text-2xl text-center font-bold text-secondary py-4'>Remaning order :{order?.length}</h1>
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}

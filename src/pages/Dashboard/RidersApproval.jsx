@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useRef, useState } from 'react'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure'
-import { FaStreetView } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import { HiUserAdd } from 'react-icons/hi';
-import { LuUserRound, LuUserRoundCheck, LuUserRoundSearch } from 'react-icons/lu';
+import {  LuUserRoundCheck, LuUserRoundSearch } from 'react-icons/lu';
 import { CiTrash } from 'react-icons/ci';
 import { FaUserLargeSlash } from 'react-icons/fa6';
 

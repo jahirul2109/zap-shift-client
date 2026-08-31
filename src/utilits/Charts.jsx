@@ -40,6 +40,7 @@ const renderActiveShape = ({
 
     const textAnchor = cos >= 0 ? "start" : "end";
     const formatStatus = (status) => {
+        if (!status) return payload.name;
         return status
             .split("_")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -103,7 +104,7 @@ const renderActiveShape = ({
                 textAnchor={textAnchor}
                 fill="#333"
             >
-                {formatStatus(payload.name)}
+                {formatStatus(payload?.name)}
             </text>
 
             {/* Percentage */}
@@ -125,7 +126,7 @@ const Charts = ({ data, isAnimationActive = true, }) => {
         delivered: "#22c55e",
         pending_pickup: "#f59e0b",
         rider_assigned: "#3b82f6",
-        cancelled: "#ef4444",
+        parcel_created: "#ef4444",
     };
 
     const chartData = data?.map((item) => ({
@@ -133,6 +134,7 @@ const Charts = ({ data, isAnimationActive = true, }) => {
         value: item.count,
         fill: colors[item._id]
     }))
+    console.log(data)
     return (
         <PieChart
             style={{

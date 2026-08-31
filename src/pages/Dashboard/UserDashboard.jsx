@@ -38,7 +38,9 @@ export const UserDashboard = () => {
         </Link>
       </div>
       <div className='w-full'>
-        <Charts data={status}></Charts>
+        {
+          status?.length > 0 ? <Charts data={status}></Charts> : <div className='h-[350px] flex justify-center items-center '><h1 className='text-2xl md:text-4xl text-secondary font-extrabold'>No data found</h1></div>
+        }
       </div>
       <div className='grid md:grid-cols-4 grid-cols-2 gap-3 items-center'>
         <div className='flex justify-between items-center h-28 md:h-full shadow-md p-3 rounded-xl bg-white'>

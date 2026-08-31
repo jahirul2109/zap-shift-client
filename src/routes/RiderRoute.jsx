@@ -3,7 +3,7 @@ import { useRole } from '../hook/useRole';
 import useAuth from '../hook/useAuth';
 import { Navigate, useLocation } from 'react-router';
 
-const RiderRoute = () => {
+const RiderRoute = ({ children }) => {
     const { users, isLoading } = useRole();
     const { user, loading } = useAuth();
     const loaction = useLocation();

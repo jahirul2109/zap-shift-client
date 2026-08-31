@@ -84,6 +84,7 @@ const MyParcel = () => {
         });
     }
     const formatStatus = (status) => {
+        if (!status) return "N/A";
         return status
             .split("_")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -117,10 +118,10 @@ const MyParcel = () => {
                                     {parcel.payment === "paid" ?
                                         <button className='btn text-green-500'>{formatStatus(parcel.payment)}</button> :
 
-                                        <button onClick={() => handelPayment(parcel)} className={` btn bg-primary`}>{parcel.payment}</button>
+                                        <button onClick={() => handelPayment(parcel)} className={` btn bg-primary`}>{formatStatus(parcel.payment)}</button>
                                     }
                                 </td>
-                                <td className='text-center'>{formatStatus(parcel.deliveryStatus)}</td>
+                                <td className='text-center'>{parcel.deliveryStatus && formatStatus(parcel.deliveryStatus)}</td>
                                 <td className='text-center'>
                                     <NavLink to={`/tarck-parcel/${parcel.trackingId}`}>
                                         {parcel.trackingId}

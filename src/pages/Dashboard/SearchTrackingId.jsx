@@ -15,6 +15,7 @@ export const SearchTrackingId = () => {
     }
     return (
         <div className=' px-10 py-15'>
+            <h1 className='text-2xl md:text-4xl text-secondary font-bold text-center my-4'>Enter your valid TrackId and track your parcel</h1>
             <form
                 onSubmit={handleSubmit(handleSearch)}
                 className='flex justify-center'>

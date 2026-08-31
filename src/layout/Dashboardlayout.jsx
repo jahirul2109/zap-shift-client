@@ -10,9 +10,16 @@ import './dashboard.css'
 import useAuth from '../hook/useAuth'
 import { IoIosLogOut } from 'react-icons/io'
 export const Dashboardlayout = () => {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   const { users } = useRole();
-  const logutModal = useRef()
+  const logutModal = useRef(null)
+
+  const handelLogout = () => {
+    logout()
+      .then(() => {
+        console.log("logout")
+      })
+  }
   return (
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle inline" />
@@ -63,13 +70,16 @@ export const Dashboardlayout = () => {
               </NavLink>
             </li>
             {/* List item */}
-            <li className=' justify-center'>
-              <NavLink to="/dashboard/my-parcel" className="is-drawer-close:tooltip   is-drawer-close:tooltip-right h-10 flex" data-tip="My Parcel">
-                {/* Parcel icon */}
-                <BsBox />
-                <span className="is-drawer-close:hidden">My Parcel</span>
-              </NavLink>
-            </li>
+            {
+              users?.role !== "admin" &&
+              <li className=' justify-center'>
+                <NavLink to="/dashboard/my-parcel" className="is-drawer-close:tooltip   is-drawer-close:tooltip-right h-10 flex" data-tip="My Parcel">
+                  {/* Parcel icon */}
+                  <BsBox />
+                  <span className="is-drawer-close:hidden">My Parcel</span>
+                </NavLink>
+              </li>
+            }
             <li className='  justify-center'>
               <NavLink to="/dashboard/payment-history" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Payment History">
                 {/* Parcel icon */}
@@ -132,45 +142,30 @@ export const Dashboardlayout = () => {
                 <span className="is-drawer-close:hidden">Settings</span>
               </button>
             </li>
-            <li className=' justify-center'>
-              <NavLink
-                className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Order status"
-                to='/dashboard/pending-order'>
-                {/* icon */}
-                <IoIosLogOut className='text-xl' />
-                <span className="is-drawer-close:hidden">Order Status</span>
-              </NavLink>
-            </li>
-            <li className='  justify-center'>
-              <NavLink
-                className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Order status"
-                to='/dashboard/pending-order'>
-                {/* icon */}
-                <BsReceiptCutoff />
-                <span className="is-drawer-close:hidden">Order Status</span>
-              </NavLink>
-            </li>
-            <li className='  justify-center'>
+            <li
+              onClick={() => logutModal.current.showModal()}
+              className='  justify-center'>
               <a
-                onClick={logutModal.current.showModal()}
                 className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Order status"
               >
                 {/* icon */}
-                <BsReceiptCutoff />
-                <span className="is-drawer-close:hidden">Order Status</span>
+                <IoIosLogOut className='text-xl' />
+                <span className="is-drawer-close:hidden">Logout</span>
               </a>
             </li>
           </ul>
           {/* You can open the modal using document.getElementById('ID').showModal() method */}
-          <button className="btn" ref={logutModal} onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button>
-          <dialog id="my_modal_3" className="modal">
+          <dialog id="my_modal_3" ref={logutModal} className="modal">
             <div className="modal-box">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
               </form>
-              <h3 className="font-bold text-lg">Hello!</h3>
-              <p className="py-4">Press ESC key or click on ✕ button to close</p>
+              <h3 className="font-bold text-center text-lg">Are you sure Logout!</h3>
+              <div className='flex justify-between gap-3 items-center mt-10'>
+                <button onClick={handelLogout} className='rounded-md cursor-pointer px-3 md:px-5 py-1 md:py-2 bg-primary text-secondary'>Yes</button>
+                <button onClick={() => logutModal.current.close()} className='rounded-md cursor-pointer px-3 md:px-5 py-1 md:py-2 bg-amber-500 text-secondary'>No</button>
+              </div>
             </div>
           </dialog>
         </div>
