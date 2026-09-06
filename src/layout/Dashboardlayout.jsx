@@ -9,6 +9,7 @@ import logoImg from '../assets/logo.png'
 import './dashboard.css'
 import useAuth from '../hook/useAuth'
 import { IoIosLogOut } from 'react-icons/io'
+import { RiAlignItemBottomLine } from 'react-icons/ri'
 export const Dashboardlayout = () => {
   const { user, logout } = useAuth()
   const { users } = useRole();
@@ -70,23 +71,37 @@ export const Dashboardlayout = () => {
               </NavLink>
             </li>
             {/* List item */}
+
+            {/* Only for user */}
             {
-              users?.role !== "admin" &&
-              <li className=' justify-center'>
+              users?.role === "user" &&
+              <> <li className=' justify-center'>
                 <NavLink to="/dashboard/my-parcel" className="is-drawer-close:tooltip   is-drawer-close:tooltip-right h-10 flex" data-tip="My Parcel">
                   {/* Parcel icon */}
                   <BsBox />
                   <span className="is-drawer-close:hidden">My Parcel</span>
                 </NavLink>
               </li>
+                <li className='  justify-center'>
+                  <NavLink to="/dashboard/payment-history" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Payment History">
+                    {/* Parcel icon */}
+                    <FaHistory />
+                    <span className="is-drawer-close:hidden">Payment History</span>
+                  </NavLink>
+                </li>
+              </>
             }
-            <li className='  justify-center'>
-              <NavLink to="/dashboard/payment-history" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Payment History">
-                {/* Parcel icon */}
-                <FaHistory />
-                <span className="is-drawer-close:hidden">Payment History</span>
-              </NavLink>
-            </li>
+
+            {/* Only for Riders */} {
+              users?.role === "rider" &&
+              <li className='  justify-center'>
+                <NavLink to="/dashboard/total-parcel" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Total Order">
+                  {/* Parcel icon */}
+                  <RiAlignItemBottomLine />
+                  <span className="is-drawer-close:hidden">Total Order</span>
+                </NavLink>
+              </li>
+            }
             <li className='  justify-center'>
               <NavLink to="/dashboard/search-trackingId" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Tracking Parcel">
                 {/*  icon */}
@@ -94,9 +109,18 @@ export const Dashboardlayout = () => {
                 <span className="is-drawer-close:hidden">Track Parcel Id</span>
               </NavLink>
             </li>
+
+            {/* Only for admin */}
             {
               users?.role === "admin" &&
               <>
+                <li className='  justify-center'>
+                  <NavLink to="/dashboard/parcel-info" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Parcel Information">
+                    {/* assign icon */}
+                    <MdAssignmentTurnedIn />
+                    <span className="is-drawer-close:hidden">Parcel Information</span>
+                  </NavLink>
+                </li>
                 <li className='  justify-center'>
                   <NavLink to="/dashboard/rider-assign" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Riders Assign">
                     {/* assign icon */}

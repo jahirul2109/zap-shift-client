@@ -34,7 +34,7 @@ const BeARider = () => {
                 if (res.data.acknowledged) {
                     Swal.fire({
                         title: "Application Submitted Successfully !",
-                        text : "Thank you for applying. Your rider application is currently pending. We'll get in touch with you within 3 days",
+                        text: "Thank you for applying. Your rider application is currently pending. We'll get in touch with you within 3 days",
                         icon: "success",
                         draggable: true
                     });
@@ -127,6 +127,7 @@ const BeARider = () => {
 
                                 <input
                                     type="email"
+                                    readOnly
                                     placeholder="Your Email"
                                     defaultValue={user?.email}
                                     // readOnly

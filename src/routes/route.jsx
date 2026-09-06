@@ -25,6 +25,9 @@ import { TrackParcel } from "../pages/Dashboard/TrackParcel";
 import { SearchTrackingId } from "../pages/Dashboard/SearchTrackingId";
 import { UserBaseDashboard } from "../pages/Dashboard/UserBaseDashboard";
 import RiderRoute from "./RiderRoute";
+import { UserRoute } from "./UserRoute";
+import TotalRiderParcel from "../pages/Dashboard/TotalRiderParcel";
+import { ParcelInfoForAdmin } from "../pages/Dashboard/ParcelInfoForAdmin";
 
 const router = createBrowserRouter([
     {
@@ -92,7 +95,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "my-parcel",
-                Component: MyParcel
+                element: <UserRoute> <MyParcel /></UserRoute>
             },
             {
                 path: 'payment-success',
@@ -104,7 +107,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'payment-history',
-                Component: PaymentHistory
+                element: <UserRoute>
+                    <PaymentHistory></PaymentHistory>
+                </UserRoute>
             }
             ,
             {
@@ -119,9 +124,21 @@ const router = createBrowserRouter([
                 </RiderRoute>
             },
             {
+                path: 'total-parcel',
+                element: <RiderRoute>
+                    <TotalRiderParcel></TotalRiderParcel>
+                </RiderRoute>
+            },
+            {
                 path: "rider-approver",
                 element: <AdminRoute>
                     <RidersApproval></RidersApproval>
+                </AdminRoute>
+            },
+            {
+                path: "parcel-info",
+                element: <AdminRoute>
+                    <ParcelInfoForAdmin></ParcelInfoForAdmin>
                 </AdminRoute>
             },
             {
@@ -129,8 +146,6 @@ const router = createBrowserRouter([
                 element: <AdminRoute>
                     <AssignRiders></AssignRiders>
                 </AdminRoute>
-
-
             },
             {
                 path: "user-management",

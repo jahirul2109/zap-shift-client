@@ -66,7 +66,10 @@ const Navbar = () => {
 
                             <NavLink to='/riders' className="btn bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
                         </> :
-                            <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
+                            <>
+                                <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
+                                <NavLink to='/login' className="btn bg-primary text-secondary flex-1 text-xl">Login</NavLink>
+                            </>
                     }
                 </div>
                 <div

@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import React from 'react'
 import useAuth from '../../hook/useAuth'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure';
 import { FaRegTrashCan } from 'react-icons/fa6';
@@ -8,6 +7,7 @@ import { FiEdit } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import ErrorPage from '../../utilits/ErrorPage';
 import { NavLink } from 'react-router';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 
 const MyParcel = () => {
     const { user } = useAuth();
@@ -15,7 +15,7 @@ const MyParcel = () => {
     const { data: parcels = [], isLoading, error, refetch } = useQuery({
         queryKey: ["parcels", user?.email],
         queryFn: async () => {
-            const res = await axiousInstence.get(`/parcels?email=${user?.email}`);
+            const res = await axiousInstence.get(`/parcels/user?email=${user?.email}`);
             return res.data
         }
         ,
@@ -48,7 +48,7 @@ const MyParcel = () => {
     })
     console.log(error, parcels, isLoading)
     if (isLoading) {
-        return <div>Loading.........</div>
+        return <LoadingDashboard></LoadingDashboard>
     }
     if (error) {
         return <ErrorPage></ErrorPage>

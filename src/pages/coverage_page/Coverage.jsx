@@ -45,7 +45,7 @@ export const Coverage = () => {
                             <path d="m21 21-4.3-4.3"></path>
                         </g>
                     </svg>
-                    <input type="search" name='location'  placeholder="Search" />
+                    <input type="search" name='location' placeholder="Search" />
                 </label>
             </form>
             <div>
@@ -62,9 +62,9 @@ export const Coverage = () => {
                     />
 
 
-                    { 
-                        warehouse.map(mark => (
-                            <Marker position={[mark.latitude, mark.longitude]}>
+                    {
+                        warehouse.map((mark, i) => (
+                            <Marker key={i} position={[mark.latitude, mark.longitude]}>
                                 <Popup>
                                     <strong>{mark.district}</strong> <br />
                                     Service Center : {mark.covered_area.join(" ,")}

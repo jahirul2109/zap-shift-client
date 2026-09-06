@@ -104,7 +104,7 @@ export const Register = () => {
 
     // }
     return (
-        <div className="w-8/12 mx-auto pt-10 md:pt-10 space-y-4">
+        <div className="w-full md:w-8/12 mx-auto pt-10 md:pt-10 space-y-4">
             <h1 className='text-5xl font-extrabold text-secondary text-center md:text-left'>Create An Account</h1>
             <p className='text-center md:text-left text-secondary font-semibold'>Register With Zap Shift</p>
             <form onSubmit={handleSubmit(userSubmitedInfo)} className="fieldset">

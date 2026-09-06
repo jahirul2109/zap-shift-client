@@ -5,11 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../hook/useAuth';
 import AnimatedNumber from '../../utilits/AnimatedNumber';
 import Charts from '../../utilits/Charts';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
+import { useRole } from '../../hook/useRole';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 export const UserDashboard = () => {
+  const { users } = useRole();
   const axiousInstence = useAxiousSecoure();
   const { user } = useAuth();
-  const { data: parcelData = [] } = useQuery({
+  const { data: parcelData = [], isLoading, error } = useQuery({
     queryKey: ["user-stats", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -20,8 +23,13 @@ export const UserDashboard = () => {
 
 
   const status = parcelData[0]?.status;
-  // console.log(status)
   console.log(parcelData[0]?.status)
+  if (isLoading) {
+    return <LoadingDashboard />
+  }
+  // if (users?.role !== "user") {
+  //   return "Dashboard"
+  // }
   return (
     <div className='p-5 md:px-10 md:py-5'>
       <div className='flex justify-between items-center'>
@@ -33,9 +41,10 @@ export const UserDashboard = () => {
             You can access all your data and information from anywhere.
           </p>
         </div>
-        <Link to='/send-parcel'>
-          <button className=' md:px-4 md:py-2 px-2 py-1 rounded-xl font-semibold bg-primary text-secondary md:text-xl'>+ Create Parcel</button>
-        </Link>
+        <NavLink to='/send-parcel'
+        className=' md:px-4 md:py-2 px-2 py-1 rounded-xl font-semibold bg-primary text-secondary md:text-xl'
+        >
+        + Create Parcel</NavLink>
       </div>
       <div className='w-full'>
         {
@@ -57,7 +66,7 @@ export const UserDashboard = () => {
         </div>
         <div className='flex justify-between items-center h-28 md:h-full shadow-md p-3 rounded-xl bg-white'>
           <div className=''>
-            <h1 className='text-xl text-base-content'>Total Paid Ammount</h1>
+            <h1 className='text-xl text-base-content'>Paid Ammount(<AnimatedNumber value={parcelData[0]?.total[0]?.count} />)</h1>
             <h1 className='text-2xl font-bold'>
               $<AnimatedNumber value={
                 parcelData[0]?.total[0]?.totalCost

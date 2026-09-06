@@ -71,12 +71,15 @@ const PendingOrder = () => {
                                 }
                                 {
                                     res.deliveryStatus === "rider_ariving" || res.deliveryStatus === "picked_up" ?
-                                        <button
+                                      <>  <button
                                             disabled={true}
                                             className='btn '
                                         >
                                             Accepted
-                                        </button> : ""
+                                        </button> <button
+                                            disabled={true}
+                                            className='btn '>Cancel</button>
+                                         </>   : ""
                                 }
 
                             </td>

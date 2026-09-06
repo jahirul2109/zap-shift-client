@@ -32,7 +32,6 @@ const SendParcel = () => {
     }
 
     const handelForm = (formData) => {
-        // console.log(formData)
         const isDocument = formData.parcelType === "document";
         const isSameDistrict = formData.senderDistrict === formData.reciverDistrict;
         const weight = parseFloat(formData.weight);
@@ -131,7 +130,6 @@ const SendParcel = () => {
 
     }
     return (
-        // <div className="min-h-screen bg-gray-100 ">
         <div className=" my-10 mx-auto bg-white rounded-2xl p-6 md:p-10">
             {/* Heading */}
             <h1 className="text-3xl font-bold text-[#073b43]">
@@ -178,25 +176,32 @@ const SendParcel = () => {
 
                         {/* Parcel Name + Weight */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+                            {/* Name */}
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Parcel Name
+                                        Parcel Name <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
                                 <input
                                     type="text"
                                     placeholder="Parcel Name"
-                                    className="input input-bordered w-full"
-                                    {...register("parcelName")}
+                                    className={`input input-bordered w-full ${errors.parcelName ? "input-error" : ""}`}
+                                    {...register("parcelName", {
+                                        required: "Name is required",
+                                    })}
                                 />
+                                {errors.parcelName && (
+                                    <p className="text-error text-xs mt-1">
+                                        {errors.parcelName.message}
+                                    </p>
+                                )}
                             </div>
-
+                            {/* Weight */}
                             <div>
                                 <label className="label">
-                                    <span className="label-text flex">
+                                    <span className="label-text ">
                                         Parcel Weight (KG) {parcelType === "document" ? "" : <span className="text-xl text-red-600">*</span>}
                                     </span>
                                 </label>
@@ -204,7 +209,7 @@ const SendParcel = () => {
                                 <input
                                     type="number"
                                     placeholder="Parcel Weight (KG)"
-                                    className="input input-bordered w-full"
+                                    className={`input input-bordered w-full ${errors.weight && parcelType !== "documnet" ? "input-error" : ""}`}
                                     {...register("weight", {
                                         required: parcelType === "document" ? false : "Weight is Must be Required", min: {
                                             value: 1,
@@ -240,7 +245,7 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Sender Name
+                                        Sender Name <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
@@ -251,18 +256,25 @@ const SendParcel = () => {
                                         type="text"
                                         placeholder="SenderName"
                                         defaultValue={user.displayName}
-                                        className="input input-bordered w-full pl-10"
-                                        {...register("senderName")}
+                                        className={`input input-bordered w-full pl-10 ${errors.senderName ? "input-error" : ""}`}
+                                        {...register("senderName", {
+                                            required: "Please enter your name",
+                                        })}
                                     />
+                                    {errors.senderName && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.senderName.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
 
-                            {/* Address */}
+                            {/* Sender Address */}
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Pickup Address
+                                        Pickup Address <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
@@ -272,16 +284,24 @@ const SendParcel = () => {
                                     <input
                                         type="text"
                                         placeholder="Address"
-                                        className="input input-bordered w-full pl-10"
-                                        {...register("senderAddress")}
+                                        className={`input input-bordered w-full pl-10 ${errors.senderAddress ? "input-error" : ""}`}
+                                        {...register("senderAddress", {
+                                            required: "Address is required",
+                                        })}
                                     />
+                                    {errors.senderAddress && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.senderAddress.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
+
                             {/* Sender Email */}
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Sender Email
+                                        Sender Email <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
@@ -290,20 +310,28 @@ const SendParcel = () => {
 
                                     <input
                                         type="email"
+                                        readOnly
                                         placeholder="Email address"
-                                        className="input input-bordered w-full pl-10"
+                                        className={`input input-bordered w-full pl-10 ${errors.senderEmail ? "input-error" : ""}`}
                                         defaultValue={user.email}
-                                        {...register("senderEmail")}
+                                        {...register("senderEmail", {
+                                            required: "Email is required",
+                                        })}
                                     />
+                                    {errors.senderEmail && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.senderEmail.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
 
-                            {/* Phone */}
+                            {/*Sender  Phone */}
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Sender Phone No
+                                        Sender Phone No <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
@@ -313,9 +341,16 @@ const SendParcel = () => {
                                     <input
                                         type="tel"
                                         placeholder="Sender Phone No"
-                                        className="input input-bordered w-full pl-10"
-                                        {...register("senderMobile")}
+                                        className={`input input-bordered w-full pl-10 ${errors.senderMobile ? "input-error" : ""}`}
+                                        {...register("senderMobile", {
+                                            required: "Mobile number is required"
+                                        })}
                                     />
+                                    {errors.senderMobile && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.senderMobile.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
@@ -324,14 +359,15 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Your Region
+                                        Your Region <span className="text-red-500">*</span>
                                     </span>
                                 </label>
-
                                 <select
                                     defaultValue=""
-                                    className="select select-bordered w-full"
-                                    {...register("senderRegion")}
+                                    className={`select select-bordered w-full ${errors.senderRegion ? "input-error" : ""}`}
+                                    {...register("senderRegion", {
+                                        required: "Rigion is required"
+                                    })}
                                 >
                                     <option value="" disabled>
                                         Select your Region
@@ -341,20 +377,26 @@ const SendParcel = () => {
                                     }
 
                                 </select>
+                                {errors.senderRegion && (
+                                    <p className="text-error text-xs mt-1">
+                                        {errors.senderRegion.message}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Sender District */}
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Your District
+                                        Your District <span className="text-red-500">*</span>
                                     </span>
                                 </label>
-
                                 <select
                                     defaultValue=""
-                                    className="select select-bordered w-full"
-                                    {...register("senderDistrict")}
+                                    className={`select select-bordered w-full ${errors.senderDistrict ? "input-error" : ""}`}
+                                    {...register("senderDistrict", {
+                                        required: "Please Select District"
+                                    })}
                                 >
                                     <option value="" disabled>
                                         Select your District
@@ -364,6 +406,11 @@ const SendParcel = () => {
                                     }
 
                                 </select>
+                                {errors.senderDistrict && (
+                                    <p className="text-error text-xs mt-1">
+                                        {errors.senderDistrict.message}
+                                    </p>
+                                )}
                             </div>
 
 
@@ -399,7 +446,7 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Receiver Name
+                                        Receiver Name <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
@@ -409,9 +456,17 @@ const SendParcel = () => {
                                     <input
                                         type="text"
                                         placeholder="Receiver Name"
-                                        className="input input-bordered w-full pl-10"
-                                        {...register("reciverName")}
+                                        className={`input input-bordered w-full pl-10 ${errors.reciverName ? "input-error" : ""}`}
+                                        {...register("reciverName", {
+                                            required: "Name is empty"
+                                        })}
                                     />
+                                    {errors.reciverName && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.reciverName.message}
+                                        </p>
+                                    )}
+
                                 </div>
                             </div>
 
@@ -420,19 +475,25 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Receiver Address
+                                        Receiver Address <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
                                 <div className="relative">
                                     <FiMapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-
                                     <input
                                         type="text"
                                         placeholder="Address"
-                                        className="input input-bordered w-full pl-10"
-                                        {...register("reciverAdderss")}
+                                        className={`input input-bordered w-full pl-10 ${errors.reciverAdderss ? "input-error" : ""}`}
+                                        {...register("reciverAdderss", {
+                                            required: "Address is required",
+                                        })}
                                     />
+                                    {errors.reciverAdderss && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.reciverAdderss.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
@@ -461,7 +522,7 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Receiver Contact No
+                                        Receiver Contact No <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
@@ -470,10 +531,17 @@ const SendParcel = () => {
 
                                     <input
                                         type="tel"
-                                        placeholder="Receiver Contact No"
-                                        className="input input-bordered w-full pl-10"
-                                        {...register("reciverMobile")}
+                                        placeholder="Sender Phone No"
+                                        className={`input input-bordered w-full pl-10 ${errors.reciverMobile ? "input-error" : ""}`}
+                                        {...register("reciverMobile", {
+                                            required: "Reciver mobile number is required"
+                                        })}
                                     />
+                                    {errors.reciverMobile && (
+                                        <p className="text-error text-xs mt-1">
+                                            {errors.reciverMobile.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
@@ -482,14 +550,16 @@ const SendParcel = () => {
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Reciver Region
+                                        Reciver Region <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
                                 <select
                                     defaultValue=""
-                                    className="select select-bordered w-full"
-                                    {...register("reciverRegion")}
+                                    className={`select select-bordered w-full ${errors.reciverRegion ? "input-error" : ""}`}
+                                    {...register("reciverRegion", {
+                                        required: " Region is required"
+                                    })}
                                 >
                                     <option value="" disabled>
                                         Select Reciver Region
@@ -499,20 +569,27 @@ const SendParcel = () => {
                                     }
 
                                 </select>
+                                {errors.reciverRegion && (
+                                    <p className="text-error text-xs mt-1">
+                                        {errors.reciverRegion.message}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Reciver District */}
                             <div>
                                 <label className="label">
                                     <span className="label-text">
-                                        Reciver   District
+                                        Reciver   District <span className="text-red-500">*</span>
                                     </span>
                                 </label>
 
                                 <select
                                     defaultValue=""
-                                    className="select select-bordered w-full"
-                                    {...register("reciverDistrict")}
+                                    className={`select select-bordered w-full ${errors.reciverDistrict ? "input-error" : ""}`}
+                                    {...register("reciverDistrict", {
+                                        required: "Please Select Dristict "
+                                    })}
                                 >
                                     <option value="" disabled>
                                         Select Reciver District
@@ -522,6 +599,11 @@ const SendParcel = () => {
                                     }
 
                                 </select>
+                                {errors.reciverDistrict && (
+                                    <p className="text-error text-xs mt-1">
+                                        {errors.reciverDistrict.message}
+                                    </p>
+                                )}
                             </div>
 
 

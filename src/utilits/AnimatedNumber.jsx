@@ -32,6 +32,9 @@ const AnimatedNumber = ({ value = 0, duration = 500 }) => {
     };
 
     requestAnimationFrame(animate);
+    return ()=> {
+      cancelAnimationFrame(animate)
+    }
   }, [value, duration]);
 
   return <>{count}</>;

@@ -37,11 +37,23 @@ export const GoogleLogin = ({ state }) => {
                     icon: "success",
                     draggable: true
                 });
+            } else {
+                Swal.fire({
+                    title: "Login Successfully!",
+                    icon: "success",
+                    draggable: true
+                });
             }
 
             navigate(from);
         }
         catch (err) {
+            Swal.fire({
+                title: "Error!",
+                icon: "error",
+                draggable: false,
+                footer : err.message
+            });
             console.log(err.message)
         }
     }

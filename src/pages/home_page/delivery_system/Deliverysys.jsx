@@ -25,7 +25,7 @@ const Deliverysys = () => {
 
     ]
     return (
-        <div className='px-10 mx-auto w-full my-5 md:my-10'>
+        <div className='md:px-10 px-4 mx-auto w-full my-5 md:my-10'>
             <h1 className='font-bold text-2xl text-secondary'>How it Work</h1>
             <div className='grid grid-cols-1 md:grid-cols-4 gap-4 '>
                 {

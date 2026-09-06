@@ -33,7 +33,7 @@ export const Login = () => {
             })
     }
     return (
-        <div className="w-8/12 mx-auto pt-10 md:pt-10 space-y-4">
+        <div className="md:w-8/12 w-full mx-auto pt-10 md:pt-10 space-y-4">
             <h1 className='text-5xl font-extrabold text-secondary text-center md:text-left'>Welcome Back</h1>
             <p className='text-center md:text-left text-secondary font-semibold'>Login With Zap Shift</p>
             <form className="fieldset" onSubmit={handleSubmit(handelLogin)}>

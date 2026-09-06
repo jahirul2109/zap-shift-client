@@ -2,6 +2,7 @@ import React from 'react'
 import { useRole } from '../hook/useRole';
 import useAuth from '../hook/useAuth';
 import { Navigate, useLocation } from 'react-router';
+import LoadingDashboard from '../utilits/LoadingDashboard';
 
 const RiderRoute = ({ children }) => {
     const { users, isLoading } = useRole();
@@ -9,7 +10,7 @@ const RiderRoute = ({ children }) => {
     const loaction = useLocation();
     console.log(users)
     if (loading || isLoading || !user) {
-        return <div>Loading.........</div>
+        return <LoadingDashboard></LoadingDashboard>
     }
 
     if (users.role !== "rider") {

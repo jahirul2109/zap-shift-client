@@ -11,7 +11,7 @@ const AssignRiders = () => {
   const { data: parcel = [], refetch: parcelRefatch, isLoading } = useQuery({
     queryKey: ['parcels', 'pending_pickup'],
     queryFn: async () => {
-      const result = await axiosInstence.get(`/parcels?deliveryStatus=pending_pickup`);
+      const result = await axiosInstence.get(`/parcels/admin?deliveryStatus=pending_pickup`);
       return result.data
     }
   })
@@ -25,7 +25,7 @@ const AssignRiders = () => {
     enabled: !!selectedParcel?.senderDistrict
   })
 
-  console.log(riders)
+  // console.log(riders)
   const findRider = (parcel) => {
     ridersModal.current.showModal()
     setSelectedParcel(parcel)
@@ -37,7 +37,7 @@ const AssignRiders = () => {
         riderEmail: rider.email,
         riderName: rider.name,
         deliveryStatus: "rider_assigned",
-        trackingId : selectedParcel.trackingId
+        trackingId: selectedParcel.trackingId
       }
 
       const result = await axiosInstence.patch(`/parcels/${selectedParcel._id}/assigning`, updateInfo)
@@ -64,6 +64,14 @@ const AssignRiders = () => {
     }
 
   })
+
+  const formatStatus = (status) => {
+    if (!status) return "N/A";
+    return status
+      .split("_")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
   return (
     <div>
       <h1>{parcel.length}</h1>
@@ -82,11 +90,11 @@ const AssignRiders = () => {
             </tr>
           </thead>
           <tbody>
-            {parcel.map((res, i) => <tr key={res._id}>
+            {parcel?.map((res, i) => <tr key={res._id}>
               <td>{i + 1}</td>
               <td>{res.parcelName}</td>
               <td>{res.cost}</td>
-              <td>{res.deliveryStatus}</td>
+              <td>{formatStatus(res.deliveryStatus)}</td>
               <td>{res.senderDistrict}</td>
               <td>{res.senderEmail}</td>
               <td>
