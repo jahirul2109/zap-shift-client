@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 
 export const Login = () => {
     const { loginWithEmailPassword } = useAuth();
-    const axiousInstence = useAxiousSecoure();
+    const [loading, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,9 +18,18 @@ export const Login = () => {
 
     const { handleSubmit, register, reset } = useForm()
     const handelLogin = (data) => {
+        setLoading(true)
         const { email, pass } = data;
         loginWithEmailPassword(email, pass)
             .then(() => {
+                setLoading(false)
+                {
+                    Swal.fire({
+                        title: "Login Successfully!",
+                        icon: "success",
+                        draggable: true
+                    });
+                }
                 navigate(from)
             })
             .catch(err => {
@@ -52,7 +61,16 @@ export const Login = () => {
                     />
                 </div>
                 <Link to='/forget_password' className='underline text-primary font-semibold'>Forget Password ?</Link>
-                <button className="btn btn-primary text-xl mt-4 w-full text-secondary font-semibold ">Login</button>
+                <button
+                    disabled={loading}
+                    className="btn btn-primary text-xl mt-4 w-full text-secondary font-semibold ">
+                    {
+                        loading ?
+                            <> <span className="loading loading-spinner loading-sm"></span> Logging in... </>
+                            :
+                            "Login"
+                    }
+                </button>
                 <p>Don't Have An Account ? <Link to='/register' state={location.state} className='underline text-primary font-semibold'>Register</Link></p>
             </form>
             <GoogleLogin state={location.state} ></GoogleLogin>

@@ -5,13 +5,20 @@ import Logo from '../components/Logo'
 import { VscCloseCompact } from 'react-icons/vsc'
 import useAuth from '../hook/useAuth'
 import './navbar.css'
+import Swal from 'sweetalert2'
 const Navbar = () => {
     const { user, logout } = useAuth();
     const logutModal = useRef(null)
     const handelLogout = () => {
         logout()
             .then(() => {
-                console.log("user logout Successfully")
+                {
+                    Swal.fire({
+                        title: "Logout Successfully!",
+                        icon: "success",
+                        draggable: true
+                    });
+                }
                 logutModal.current.close()
             })
     }
