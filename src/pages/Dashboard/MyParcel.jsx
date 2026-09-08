@@ -92,56 +92,64 @@ const MyParcel = () => {
     };
     // console.log(parcels.length)
     return (
-        <div className='py-10'>
-            <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                <table className="table table-zebra">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th className='text-center'>SL</th>
-                            <th className='text-center'>Name</th>
-                            <th className='text-center'>Ammount</th>
-                            <th className='text-center'>Payment Status</th>
-                            <th className='text-center'>Delivery Status</th>
-                            <th className='text-center'>Tracikg Id</th>
-                            <th className='text-center'>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className=''>
-                        {/* row 1 */}
-                        {
-                            parcels?.map((parcel, i) => <tr key={parcel._id}>
-                                <th className='text-center'>{i + 1}</th>
-                                <td className='text-center'>{parcel.parcelName}</td>
-                                <td className='text-center'>${parcel.cost}</td>
-                                <td className='text-center'>
-                                    {parcel.payment === "paid" ?
-                                        <button className='btn text-green-500'>{formatStatus(parcel.payment)}</button> :
+        <div className=''>
 
-                                        <button onClick={() => handelPayment(parcel)} className={` btn bg-primary`}>{formatStatus(parcel.payment)}</button>
-                                    }
-                                </td>
-                                <td className='text-center'>{parcel.deliveryStatus && formatStatus(parcel.deliveryStatus)}</td>
-                                <td className='text-center'>
-                                    <NavLink to={`/tarck-parcel/${parcel.trackingId}`}>
-                                        {parcel.trackingId}
-                                    </NavLink>
-                                </td>
-                                <td>
-                                    <div className='flex justify-center items-center'>
-                                        <button
-                                            onClick={() => handelDelete(parcel)}
-                                            data-tip="Delete" className='btn'><FaRegTrashCan /></button>
-                                        <button data-tip="View" className='btn mx-2'><MdOutlinePageview /></button>
-                                        <button data-tip="Edit" className='btn'><FiEdit /></button>
-                                    </div>
-                                </td>
-                            </tr>)
-                        }
+            {
+                parcels.length === 0 ? <span className='font-bold py-7 w-full flex justify-center items-center text-xl md:text-2xl text-secondary text-center'>No Transaction found</span>
+                    :
 
-                    </tbody>
-                </table>
-            </div>
+                    <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                        <table className="table table-zebra">
+                            {/* head */}
+                            <thead>
+                                <tr
+                                    className='text-secondary bg-primary'
+                                >
+                                    <th className='text-center'>SL</th>
+                                    <th className='text-center'>Name</th>
+                                    <th className='text-center'>Ammount</th>
+                                    <th className='text-center'>Payment Status</th>
+                                    <th className='text-center'>Delivery Status</th>
+                                    <th className='text-center'>Tracikg Id</th>
+                                    <th className='text-center'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody className=''>
+                                {/* row 1 */}
+                                {
+                                    parcels?.map((parcel, i) => <tr key={parcel._id}>
+                                        <th className='text-center'>{i + 1}</th>
+                                        <td className='text-center'>{parcel.parcelName}</td>
+                                        <td className='text-center'>${parcel.cost}</td>
+                                        <td className='text-center'>
+                                            {parcel.payment === "paid" ?
+                                                <button className='btn text-green-500'>{formatStatus(parcel.payment)}</button> :
+
+                                                <button onClick={() => handelPayment(parcel)} className={` btn btn-ghost`}>{formatStatus(parcel.payment)}</button>
+                                            }
+                                        </td>
+                                        <td className='text-center'>{parcel.deliveryStatus && formatStatus(parcel.deliveryStatus)}</td>
+                                        <td className='text-center'>
+                                            <NavLink to={`/tarck-parcel/${parcel.trackingId}`}>
+                                                {parcel.trackingId}
+                                            </NavLink>
+                                        </td>
+                                        <td>
+                                            <div className='flex justify-center items-center'>
+                                                <button
+                                                    onClick={() => handelDelete(parcel)}
+                                                    data-tip="Delete" className='btn'><FaRegTrashCan /></button>
+                                                <button data-tip="View" className='btn mx-2'><MdOutlinePageview /></button>
+                                                <button data-tip="Edit" className='btn'><FiEdit /></button>
+                                            </div>
+                                        </td>
+                                    </tr>)
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+            }
         </div>
     )
 }

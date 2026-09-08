@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import {  LuUserRoundCheck, LuUserRoundSearch } from 'react-icons/lu';
 import { CiTrash } from 'react-icons/ci';
 import { FaUserLargeSlash } from 'react-icons/fa6';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 
 export const RidersApproval = () => {
   const [viewRider, setViewRider] = useState(null)
@@ -98,7 +99,9 @@ export const RidersApproval = () => {
     handelRiderStatus(rider, "rejected")
   }
 
-
+    if(isLoading) {
+        return <LoadingDashboard></LoadingDashboard>
+    }
   console.log(rider)
   return (
     <div className="overflow-x-auto">

@@ -3,12 +3,13 @@ import React, { useRef, useState } from 'react'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure'
 import Swal from 'sweetalert2';
 import { CgClose } from 'react-icons/cg';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 
 const AssignRiders = () => {
   const axiosInstence = useAxiousSecoure();
   const [selectedParcel, setSelectedParcel] = useState(null)
   const ridersModal = useRef();
-  const { data: parcel = [], refetch: parcelRefatch, isLoading } = useQuery({
+  const { data: parcel = [], refetch: parcelRefatch, isLoading: parcelLoading } = useQuery({
     queryKey: ['parcels', 'pending_pickup'],
     queryFn: async () => {
       const result = await axiosInstence.get(`/parcels/admin?deliveryStatus=pending_pickup`);
@@ -72,6 +73,10 @@ const AssignRiders = () => {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
+
+  if (parcelLoading) {
+    return <LoadingDashboard></LoadingDashboard>
+  }
   return (
     <div>
       <h1>{parcel.length}</h1>
@@ -144,7 +149,7 @@ const AssignRiders = () => {
                   </tr>)}
                 </tbody>
               </table>
-            </div> : <h1 className=' flex justify-center text-secondary'>Rider Not Available in this time</h1>}
+            </div> : <h1 className=' flex justify-center text-secondary'>Rider Not Available on {selectedParcel?.senderDistrict} in this time</h1>}
           </div>
         </div>
       </dialog>

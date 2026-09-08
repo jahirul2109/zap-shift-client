@@ -343,7 +343,11 @@ const SendParcel = () => {
                                         placeholder="Sender Phone No"
                                         className={`input input-bordered w-full pl-10 ${errors.senderMobile ? "input-error" : ""}`}
                                         {...register("senderMobile", {
-                                            required: "Mobile number is required"
+                                            required: "Mobile number is required",
+                                            pattern: {
+                                                value: /^01[3-9]\d{8}$/,
+                                                message: "Enter a valid 11 digit mobile number",
+                                            },
                                         })}
                                     />
                                     {errors.senderMobile && (
@@ -534,7 +538,11 @@ const SendParcel = () => {
                                         placeholder="Sender Phone No"
                                         className={`input input-bordered w-full pl-10 ${errors.reciverMobile ? "input-error" : ""}`}
                                         {...register("reciverMobile", {
-                                            required: "Reciver mobile number is required"
+                                            required: "Reciver mobile number is required",
+                                            pattern: {
+                                                value: /^01[3-9]\d{8}$/,
+                                                message: "Enter a valid 11 digit mobile number",
+                                            },
                                         })}
                                     />
                                     {errors.reciverMobile && (

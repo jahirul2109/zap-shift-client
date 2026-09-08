@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import { useParams } from 'react-router'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 
 export const TrackParcel = () => {
     const { id } = useParams();
@@ -16,6 +17,9 @@ export const TrackParcel = () => {
         }
     })
     console.log(trackingParcel)
+    if (isLoading) {
+        return <LoadingDashboard></LoadingDashboard>
+    }
     return (
         <div className='min-h-[50vh] w-full my-20 flex justify-center flex-col items-center mx-auto'>
             <h1 className='text-2xl md:text-5xl text-secondary font-bold text-center my-5'>Tracking Your Parcel </h1>

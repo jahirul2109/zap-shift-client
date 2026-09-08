@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useRef } from 'react'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure'
-import { MdAdminPanelSettings, MdSecurity, MdSecurityUpdateWarning } from 'react-icons/md';
+import { MdSecurity } from 'react-icons/md';
 import { AiTwotoneCloseCircle } from 'react-icons/ai';
 import useAuth from '../../hook/useAuth';
 import Swal from 'sweetalert2';
+import { useRole } from '../../hook/useRole';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 
 const UserManagement = () => {
-  const { user } = useAuth()
   const axiousInstence = useAxiousSecoure();
   const modalRef = useRef();
   const { data: users = [], isLoading, error, refetch } = useQuery({
@@ -72,6 +73,11 @@ const UserManagement = () => {
     }
     updatedRole(users, "user")
   }
+
+  if(isLoading) {
+    return <LoadingDashboard></LoadingDashboard>
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra">
@@ -108,15 +114,18 @@ const UserManagement = () => {
                 {res.role}
               </td>
               <td className='flex'>
-                <button
-                  onClick={() => makeAdmin(res)}
-                  data-tip="Make Admin"
-                  className={`tooltip tooltip-start md:tooltip-top md:tooltip-center  btn ${res.role === "admin" ? "bg-green-500":""} `}><MdSecurity />
-                </button>
-                <button
-                  onClick={() => makeUser(res)}
-                  className='btn'><AiTwotoneCloseCircle /></button>
-                <button></button>
+
+                {
+                  res.role === "admin" ? <button
+                    onClick={() => makeUser(res)}
+                    data-tip="Make User"
+                    className='btn tooltip tooltip-start md:tooltip-top md:tooltip-center bg-warning'><AiTwotoneCloseCircle /></button>
+                    : <button
+                      onClick={() => makeAdmin(res)}
+                      data-tip="Make Admin"
+                      className={`tooltip tooltip-start md:tooltip-top md:tooltip-center  btn bg-success`}><MdSecurity />
+                    </button>
+                }
               </td>
             </tr>)
           }

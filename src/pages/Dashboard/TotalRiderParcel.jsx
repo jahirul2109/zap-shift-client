@@ -11,7 +11,7 @@ const TotalRiderParcel = () =>{
     enabled: !!user?.email,
     queryKey: ['riderStats', user?.email],
     queryFn: async () => {
-      const result = await axiousInstence.get(`/parcels/${user?.email}/riderStats?limit=12`)
+      const result = await axiousInstence.get(`/parcels/${user?.email}/riderOrder?limit=12`)
       return result.data
     }
   })

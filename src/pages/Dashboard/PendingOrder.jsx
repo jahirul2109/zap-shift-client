@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import useAuth from '../../hook/useAuth'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure';
+import LoadingDashboard from '../../utilits/LoadingDashboard';
 const PendingOrder = () => {
     const { user } = useAuth();
     const axiosIntence = useAxiousSecoure();
-    const { data: order = [], refetch: orderRefeching, isLoading, isError } = useQuery({
+    const { data: order = [], refetch: orderRefeching, isLoading: orderLoading, isError } = useQuery({
         queryKey: ["parcels", user?.email, "rider_assigned"],
         queryFn: async () => {
             const result = await axiosIntence.get(`/parcels/${user?.email}/rider?deliveryStatus=rider_assigned`)
@@ -34,6 +35,9 @@ const PendingOrder = () => {
         updateStatus({ parcel, status })
     }
     console.log(order)
+    if (orderLoading) {
+        return <LoadingDashboard></LoadingDashboard>
+    }
     return (
         <div>
             <h1 className='md:text-5xl text-2xl text-center font-bold text-secondary py-4'>Remaning order :{order?.length}</h1>
@@ -71,7 +75,7 @@ const PendingOrder = () => {
                                 }
                                 {
                                     res.deliveryStatus === "rider_ariving" || res.deliveryStatus === "picked_up" ?
-                                      <>  <button
+                                        <>  <button
                                             disabled={true}
                                             className='btn '
                                         >
@@ -79,7 +83,7 @@ const PendingOrder = () => {
                                         </button> <button
                                             disabled={true}
                                             className='btn '>Cancel</button>
-                                         </>   : ""
+                                        </> : ""
                                 }
 
                             </td>
