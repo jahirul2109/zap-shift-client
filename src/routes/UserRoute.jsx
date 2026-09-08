@@ -7,7 +7,7 @@ export const UserRoute = ({children}) => {
     const { users, isLoading } = useRole();
     const { user, loading } = useAuth();
     const loaction = useLocation();
-    console.log(users)
+    // console.log(users)
     if (loading || isLoading || !user) {
         return <LoadingDashboard></LoadingDashboard>
     }

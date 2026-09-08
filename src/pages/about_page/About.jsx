@@ -31,7 +31,7 @@ const aboutData = {
 
 const About = () => {
     const [activeTab, setActiveTab] = useState("Story");
-    console.log(aboutData['Success'].content)
+    // console.log(aboutData['Success'].content)
 
     return (
         <section className="my-10 md:my-14">

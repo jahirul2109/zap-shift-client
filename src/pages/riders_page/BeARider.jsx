@@ -30,7 +30,7 @@ const BeARider = () => {
         // console.log(data)
         axiousInstence.post('/riders', data)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.acknowledged) {
                     Swal.fire({
                         title: "Application Submitted Successfully !",
@@ -42,7 +42,6 @@ const BeARider = () => {
                 }
             })
             .catch(err => {
-                console.log(err.response?.status)
                 if (err.response?.status === 409) {
                     Swal.fire({
                         icon: "error",

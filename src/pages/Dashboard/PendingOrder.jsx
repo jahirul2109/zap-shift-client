@@ -15,8 +15,6 @@ const PendingOrder = () => {
 
     const { mutate: updateStatus = [], isPending: ariving } = useMutation({
         mutationFn: async ({ parcel, status }) => {
-            console.log("Status", status)
-            console.log("parcel", parcel)
             const updateInfo = {
                 deliveryStatus: status,
                 trackingId: parcel.trackingId,
@@ -31,10 +29,10 @@ const PendingOrder = () => {
     })
 
     const handelStatus = (parcel, status) => {
-        console.log("in", status, parcel)
+        // console.log("in", status, parcel)
         updateStatus({ parcel, status })
     }
-    console.log(order)
+    // console.log(order)
     if (orderLoading) {
         return <LoadingDashboard></LoadingDashboard>
     }

@@ -32,14 +32,14 @@ export const Register = () => {
             formData.append("image", profileImg);
             const apiKey = import.meta.env.VITE_IMAGEBB_KEY;
 
-            console.log("apiKey", apiKey)
-            console.log("img", profileImg)
-            console.log("imgType", profileImg.type)
+            // console.log("apiKey", apiKey)
+            // console.log("img", profileImg)
+            // console.log("imgType", profileImg.type)
 
             const imageBB_Api_Url = `https://api.imgbb.com/1/upload?key=${apiKey}`
             // store photo
             const imageResult = await axios.post(imageBB_Api_Url, formData);
-            console.log("imgeresult", imageResult)
+            // console.log("imgeresult", imageResult)
             const userImg = imageResult.data.data.url;
 
             // Create Account
@@ -67,7 +67,7 @@ export const Register = () => {
                 icon: "success",
                 draggable: true
             });
-            console.log(profileImg)
+            // console.log(profileImg)
 
             navigate(from)
             reset();

@@ -12,7 +12,7 @@ export const Coverage = () => {
         fetch('/warehouses.json')
             .then(res => res.json())
             .then(result => {
-                console.log(result)
+                // console.log(result)
                 setWarehouse(result)
             })
     }, [])

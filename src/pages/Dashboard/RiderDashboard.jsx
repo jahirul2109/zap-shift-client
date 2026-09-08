@@ -24,7 +24,7 @@ const RiderDashboard = () => {
 
   const deliverdItem = parcels.find((parcel) => parcel._id === "delivered")
   const status = parcels;
-  console.log(status)
+  // console.log(status)
   if (isLoading) {
     return <LoadingDashboard />
   }

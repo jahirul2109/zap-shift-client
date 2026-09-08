@@ -10,7 +10,7 @@ export const GoogleLogin = ({ state }) => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const from = state ? state : "/";
-    console.log(state)
+    // console.log(state)
     const { socialLogin } = useAuth()
     const googleProvider = new GoogleAuthProvider();
     const handelLogin = async () => {
@@ -56,7 +56,7 @@ export const GoogleLogin = ({ state }) => {
                 draggable: false,
                 footer: err.message
             });
-            console.log(err.message)
+            // console.log(err.message)
         }
         finally {
             setLoading(false)

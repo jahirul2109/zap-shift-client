@@ -7,7 +7,7 @@ import LoadingDashboard from '../../utilits/LoadingDashboard';
 export const TrackParcel = () => {
     const { id } = useParams();
     const axiosInstence = useAxiousSecoure();
-    console.log(id)
+    // console.log(id)
 
     const { data: trackingParcel = [], isLoading } = useQuery({
         queryKey: ['trackingId', id],
@@ -16,7 +16,7 @@ export const TrackParcel = () => {
             return result.data;
         }
     })
-    console.log(trackingParcel)
+    // console.log(trackingParcel)
     if (isLoading) {
         return <LoadingDashboard></LoadingDashboard>
     }

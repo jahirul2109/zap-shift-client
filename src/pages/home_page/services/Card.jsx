@@ -1,7 +1,6 @@
 import React from 'react'
 import img from '../../../assets/service.png'
 const Card = ({data}) => {
-  console.log(img)
   return (
     <div className='bg-white py-3 px-5 rounded-2xl h-75 flex flex-col justify-center gap-4 items-center '>
         <div className='p-2 rounded-full bg-primary'>

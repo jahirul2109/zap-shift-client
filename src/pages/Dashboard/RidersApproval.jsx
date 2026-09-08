@@ -102,7 +102,7 @@ export const RidersApproval = () => {
     if(isLoading) {
         return <LoadingDashboard></LoadingDashboard>
     }
-  console.log(rider)
+  // console.log(rider)
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra">

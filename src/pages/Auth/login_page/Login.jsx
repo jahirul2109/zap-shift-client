@@ -14,7 +14,7 @@ export const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state || '/';
-    console.log(location)
+    // console.log(location)
 
     const { handleSubmit, register, reset } = useForm()
     const handelLogin = (data) => {

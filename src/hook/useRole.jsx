@@ -16,6 +16,6 @@ export const useRole = () => {
             enabled: !!user?.email
         }
     )
-    console.log(users)
+    // console.log(users)
     return { users, isLoading }
 }

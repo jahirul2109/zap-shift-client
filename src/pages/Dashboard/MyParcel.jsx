@@ -46,7 +46,7 @@ const MyParcel = () => {
             });
         }
     })
-    console.log(error, parcels, isLoading)
+    // console.log(error, parcels, isLoading)
     if (isLoading) {
         return <LoadingDashboard></LoadingDashboard>
     }
@@ -62,10 +62,10 @@ const MyParcel = () => {
             coustomerEmail: parcel.senderEmail,
             parcelName: parcel.parcelName
         }
-        console.log(paymantInfo)
+        // console.log(paymantInfo)
         //    const res = await axiousInstence.post(`/create_checkout_session`, paymantInfo) ;
         const res = await axiousInstence.post(`/payment_checkout_session`, paymantInfo);
-        console.log(res.data.url)
+        // console.log(res.data.url)
         window.location.href = res.data.url
     }
 

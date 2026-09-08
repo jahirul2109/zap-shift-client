@@ -8,7 +8,6 @@ const AdminRoute = ({ children }) => {
   const { users, isLoading } = useRole();
   const { user, loading } = useAuth();
   const loaction = useLocation();
-  console.log(users)
   if (loading || isLoading || !user) {
     return <LoadingDashboard></LoadingDashboard>
   }

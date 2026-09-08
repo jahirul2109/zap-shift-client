@@ -7,12 +7,11 @@ export const PaymentSuccess = () => {
     const [searchParams] = useSearchParams();
     const [paymentInfo, setPaymentInfo] = useState({})
     const sessionId = searchParams.get("session_id");
-    console.log(paymentInfo.TransactionId);
-    console.log(paymentInfo)
+    // console.log(paymentInfo.TransactionId);
+    // console.log(paymentInfo)
     useEffect(() => {
         axiosInstence.patch(`/payment-verification?session_id=${sessionId}`)
             .then(res => {
-                console.log(res.data)
                 setPaymentInfo({
                     TransactionId: res.data.TransactionId,
                     trackingId: res.data.trackingId

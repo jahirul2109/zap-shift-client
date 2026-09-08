@@ -134,7 +134,7 @@ const Charts = ({ data, isAnimationActive = true, }) => {
         value: item.count,
         fill: colors[item._id]
     }))
-    console.log(data)
+    // console.log(data)
     return (
         <PieChart
             style={{

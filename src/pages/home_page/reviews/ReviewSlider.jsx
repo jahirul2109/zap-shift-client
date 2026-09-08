@@ -8,7 +8,7 @@ import { FaQuoteLeft } from 'react-icons/fa';
 
 const ReviewSlider = ({ promised }) => {
   const data = use(promised);
-  console.log(data)
+  // console.log(data)
   return (
     <Swiper
       effect={'coverflow'}

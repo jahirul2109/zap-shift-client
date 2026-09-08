@@ -19,7 +19,7 @@ export const Dashboardlayout = () => {
   const handelLogout = () => {
     logout()
       .then(() => {
-        console.log("logout")
+        // console.log("logout")
         {
           Swal.fire({
             title: "Logout Successfully!",

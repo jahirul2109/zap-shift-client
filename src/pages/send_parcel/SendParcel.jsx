@@ -62,7 +62,7 @@ const SendParcel = () => {
         }
         formData.cost = cost;
         formData.payment = 'pay'
-        console.log("cost", cost, "deliveryCost", deliveryCost)
+        // console.log("cost", cost, "deliveryCost", deliveryCost)
         Swal.fire({
             title: "Are you agree this cost?",
             html: `
@@ -74,7 +74,7 @@ const SendParcel = () => {
             Delivery Charge
           </td>
           <td style="padding: 10px 0; text-align: right; border-bottom: 1px solid #eee;">
-            ৳${deliveryCost}
+            $${deliveryCost}
           </td>
         </tr>
         <tr>
@@ -82,7 +82,7 @@ const SendParcel = () => {
             Over Weight Charge
           </td>
           <td style="padding: 10px 0; text-align: right; border-bottom: 1px solid #eee;">
-            ৳${overWeightCost}
+            $${overWeightCost}
           </td>
         </tr>
         <tr>
@@ -90,7 +90,7 @@ const SendParcel = () => {
             Extra Charge 
           </td>
           <td style="padding: 10px 0; text-align: right; border-bottom: 1px solid #eee;">
-            ৳${extraCost}
+            $${extraCost}
           </td>
         </tr>
 
@@ -99,7 +99,7 @@ const SendParcel = () => {
             Total Amount
           </td>
           <td style="padding: 12px 0; text-align: right; font-weight: 700;">
-            ৳${cost}
+            $${cost}
           </td>
         </tr>
 

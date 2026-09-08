@@ -1,7 +1,6 @@
 import loadingImg from "../assets/van.svg";
 
 const LoadingDashboard = () => {
-    console.log(loadingImg)
     return (
         <div className="min-h-[60vh] flex flex-col items-center justify-center overflow-hidden">
             <div className="relative h-fit w-fit">

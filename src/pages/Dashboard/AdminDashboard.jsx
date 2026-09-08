@@ -31,7 +31,7 @@ export const AdminDashboard = () => {
     return sum + item.count
   }, 0)
   const status = parcels;
-  console.log(status)
+  // console.log(status)
   if (isLoading) {
     return <LoadingDashboard />
   }
