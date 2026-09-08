@@ -3,22 +3,31 @@ import { BsBox, BsReceiptCutoff } from 'react-icons/bs'
 import { FaHistory } from 'react-icons/fa'
 import { FaUsersBetweenLines } from 'react-icons/fa6'
 import { MdAssignmentTurnedIn, MdDirectionsBike, MdOutlineFindInPage } from 'react-icons/md'
-import { Link, NavLink, Outlet } from 'react-router'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router'
 import { useRole } from '../hook/useRole'
 import logoImg from '../assets/logo.png'
 import './dashboard.css'
 import useAuth from '../hook/useAuth'
 import { IoIosLogOut } from 'react-icons/io'
 import { RiAlignItemBottomLine } from 'react-icons/ri'
+import Swal from 'sweetalert2'
 export const Dashboardlayout = () => {
   const { user, logout } = useAuth()
   const { users } = useRole();
   const logutModal = useRef(null)
-
+  const navigate = useNavigate()
   const handelLogout = () => {
     logout()
       .then(() => {
         console.log("logout")
+        {
+          Swal.fire({
+            title: "Logout Successfully!",
+            icon: "success",
+            draggable: true
+          });
+        }
+        navigate('/login', { replace: true, state: null })
       })
   }
   return (
