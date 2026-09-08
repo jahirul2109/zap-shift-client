@@ -11,6 +11,8 @@ import useAuth from '../hook/useAuth'
 import { IoIosLogOut } from 'react-icons/io'
 import { RiAlignItemBottomLine } from 'react-icons/ri'
 import Swal from 'sweetalert2'
+import { TbTargetArrow } from 'react-icons/tb'
+import { BiDetail } from 'react-icons/bi'
 export const Dashboardlayout = () => {
   const { user, logout } = useAuth()
   const { users } = useRole();
@@ -71,12 +73,10 @@ export const Dashboardlayout = () => {
             <li className=''>
               <NavLink
 
-                to="/dashboard" end className="is-drawer-close:tooltip is-drawer-close:tooltip-right h-10 flex " data-tip="Homepage">
+                to="/dashboard" end className="is-drawer-close:tooltip is-drawer-close:tooltip-right h-10 flex " data-tip="dashboard">
                 {/* Home icon */}
-                <div className='text-xl'>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                </div>
-                <span className="is-drawer-close:hidden">Homepage</span>
+                 <TbTargetArrow />
+                <span className="is-drawer-close:hidden">Dashboard</span>
               </NavLink>
             </li>
             {/* List item */}
@@ -126,7 +126,7 @@ export const Dashboardlayout = () => {
                 <li className='  justify-center'>
                   <NavLink to="/dashboard/parcel-info" className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Parcel Information">
                     {/* assign icon */}
-                    <MdAssignmentTurnedIn />
+                    <BiDetail />
                     <span className="is-drawer-close:hidden">Parcel Information</span>
                   </NavLink>
                 </li>
@@ -168,13 +168,6 @@ export const Dashboardlayout = () => {
 
             {/* List item */}
             <h1 className='uppercase text-secondary font-bold'>Genarel</h1>
-            <li className='  justify-center'>
-              <button className="is-drawer-close:tooltip  is-drawer-close:tooltip-right h-10 flex" data-tip="Settings">
-                {/* Settings icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
-                <span className="is-drawer-close:hidden">Settings</span>
-              </button>
-            </li>
             <li
               onClick={() => logutModal.current.showModal()}
               className='  justify-center'>

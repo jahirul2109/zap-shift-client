@@ -49,10 +49,15 @@ export const AdminDashboard = () => {
             You can access all your data and information from anywhere.
           </p>
         </div>
-        <NavLink to='/dashboard/pending-order'
-          className=' md:px-4 md:py-2 px-2 py-1 rounded-xl font-semibold bg-primary text-secondary md:text-xl'
-        >
-          Find New Order</NavLink>
+        <div className='flex justify-between items-center h-28 md:h-full shadow-md p-3 rounded-xl bg-white'>
+          <div className=''>
+            <h1 className='text-xl text-base-content'>Total earn ammount ({deliverd?.count})</h1>
+            <h1 className='text-2xl font-bold'>
+              $<AnimatedNumber value={Math.floor(deliverd?.cost - ((deliverd?.count * 40) + deliverd?.cost * 0.05))} />
+            </h1>
+            {/* <h1 className='text-xl text-base-content'>Full Year</h1> */}
+          </div>
+        </div>
       </div>
       <div className='w-full'>
         {
@@ -62,11 +67,12 @@ export const AdminDashboard = () => {
       <div className='grid md:grid-cols-3 grid-cols-1 gap-3 items-center'>
         <div className='flex justify-between items-center h-28 md:h-full shadow-md p-3 rounded-xl bg-white'>
           <div className=''>
-            <h1 className='text-xl text-base-content'>Total earn ({deliverd?.count})</h1>
+            <h1 className='text-xl text-base-content'>Total Order</h1>
             <h1 className='text-2xl font-bold'>
-              <AnimatedNumber value={Math.floor(deliverd?.cost - ((deliverd?.count * 40) + deliverd?.cost * 0.05))} />
+              <AnimatedNumber value={
+                totalParcels
+              }></AnimatedNumber>
             </h1>
-            {/* <h1 className='text-xl text-base-content'>Full Year</h1> */}
           </div>
           <div>
             < FcPositiveDynamic className='text-5xl text-primary' />
@@ -74,12 +80,11 @@ export const AdminDashboard = () => {
         </div>
         <div className='flex justify-between items-center h-28 md:h-full shadow-md p-3 rounded-xl bg-white'>
           <div className=''>
-            <h1 className='text-xl text-base-content'>Total Order</h1>
+            <h1 className='text-xl text-base-content'>Cancelled Order</h1>
             <h1 className='text-2xl font-bold'>
-              <AnimatedNumber value={
-                totalParcels
-              }></AnimatedNumber>
+              <AnimatedNumber value={0} />
             </h1>
+            {/* <h1 className='text-xl text-base-content'>Full Year</h1> */}
           </div>
           <div>
             < FcPositiveDynamic className='text-5xl text-primary' />

@@ -12,12 +12,12 @@ const Footer = () => {
           <br />
           Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.
         </p>
-        <ul className='flex flex-wrap justify-center gap-4 items-center text-base-content gap-10 font-semibold'>
-          <li className='hover:underline'><Link>Service</Link></li>
-          <li className='hover:underline'><Link>About us</Link></li>
-          <li className='hover:underline'><Link>Coverage</Link></li>
+        <ul className='flex flex-wrap justify-center gap-4 items-center text-base-content  font-semibold'>
+          <li className='hover:underline'><a href='#service'>Service</a></li>
+          <li className='hover:underline'><Link to='/about'>About us</Link></li>
+          <li className='hover:underline'><Link to='/coverage'>Coverage</Link></li>
           <li className='hover:underline'><Link>Pricing</Link></li>
-          <li className='hover:underline'><Link>Blog</Link></li>
+          <li className='hover:underline'><Link to='/blog'>Blog</Link></li>
           <li className='hover:underline'><Link>Contact</Link></li>
         </ul>
         <p className='text-base-content '>Copyright © {new Date().getFullYear()} - All right reserved</p>

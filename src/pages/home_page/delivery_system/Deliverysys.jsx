@@ -29,7 +29,7 @@ const Deliverysys = () => {
             <h1 className='font-bold text-2xl text-secondary'>How it Work</h1>
             <div className='grid grid-cols-1 md:grid-cols-4 gap-4 '>
                 {
-                    cardData.map((card, index) => <div key={index} className='space-y-3 bg-white h-[100] py-2 px-3 rounded-2xl' >
+                    cardData.map((card, index) => <div key={index} className='space-y-3 flex flex-col justify-center md:items-center bg-white h-[15rem] py-2 px-3 rounded-2xl' >
                         <img src={card.image} className='w-10 md:w-14' alt="" />
                         <h1 className='text-secondary font-bold text-xl'>{card.title}</h1>
                         <p className='text-dark'>{card.description}</p>

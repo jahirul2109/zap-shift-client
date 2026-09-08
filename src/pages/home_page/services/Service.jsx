@@ -1,4 +1,3 @@
-import React from 'react'
 import serviceImg from '../../../assets/service.png'
 import Card from './Card'
 const Service = () => {
@@ -32,7 +31,9 @@ const Service = () => {
 
     ]
     return (
-        <div className='px-10 bg-secondary rounded-2xl py-10 text-white space-y-10 my-10'>
+        <div
+        id='service'
+        className='px-10 bg-secondary rounded-2xl py-10 text-white space-y-10 my-10'>
             <div className='text-center'>
                 <h1 className='text-2xl  font-bold'>
                     Our Service
