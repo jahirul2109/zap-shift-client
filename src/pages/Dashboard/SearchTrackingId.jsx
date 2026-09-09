@@ -11,7 +11,7 @@ export const SearchTrackingId = () => {
             return;
         }
         navigate(`/tarck-parcel/${search}`)
-        console.log(search)
+        // console.log(search)
     }
     return (
         <div className=' px-10 py-15'>

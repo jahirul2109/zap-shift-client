@@ -105,10 +105,10 @@ const Navbar = () => {
                             user ? <><a
                                 onClick={() => logutModal.current.showModal()}
                                 className="btn flex-1 text-xl">Logout</a>
-                                <NavLink to='/rider_login' className="btn flex-1 bg-primary text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
+                                <NavLink to='/riders' className="btn flex-1 bg-primary md:text-xl">Be a Rider <FaArrowCircleRight className='-rotate-45' /></NavLink>
 
                             </> :
-                                <NavLink to='/register' className="btn flex-1 text-xl">Signup</NavLink>
+                                <NavLink to='/register' className="btn flex-1 md:text-xl">Signup</NavLink>
                         }
                     </div>
                 </div>

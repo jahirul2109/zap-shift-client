@@ -68,14 +68,14 @@ export const Faq = () => {
                 </div>
 
                 {/* Button */}
-                <div className="flex justify-center mt-10">
+                {/* <div className="flex justify-center mt-10">
                     <button className="btn rounded-full bg-primary hover:bg-lime-400 border-none text-black">
                         See More FAQ's
                         <span className="w-8 h-8 rounded-full bg-black text-white flex justify-center items-center">
                             <FaArrowRight size={14} />
                         </span>
                     </button>
-                </div>
+                </div> */}
 
             </div>
         </section>

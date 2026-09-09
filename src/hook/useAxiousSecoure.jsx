@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 
 
 const axiousSecoure = axios.create({
-  baseURL: 'https://zap-shift-server-plum-zeta.vercel.app'
+  baseURL: 'https://zap-shift-server-plum-zeta.vercel.app/'
 })
 
 export const useAxiousSecoure = () => {

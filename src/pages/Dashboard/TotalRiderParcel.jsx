@@ -18,7 +18,6 @@ const TotalRiderParcel = () =>{
   if (isLoading) {
     return <LoadingDashboard></LoadingDashboard>
   }
-  console.log(parcelCollecton)
   return (
     <div>
       <h1>Total Deliverd Order :  </h1>

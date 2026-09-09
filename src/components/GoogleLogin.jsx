@@ -9,8 +9,7 @@ export const GoogleLogin = ({ state }) => {
     const axiousInstence = useAxiousSecoure();
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
-    const from = state ? state : "/";
-    // console.log(state)
+    const from = state?.from || "/";
     const { socialLogin } = useAuth()
     const googleProvider = new GoogleAuthProvider();
     const handelLogin = async () => {

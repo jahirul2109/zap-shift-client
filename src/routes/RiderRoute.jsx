@@ -9,15 +9,25 @@ const RiderRoute = ({ children }) => {
     const { user, loading } = useAuth();
     const loaction = useLocation();
     // console.log(users)
-    if (loading || isLoading || !user) {
+    if (loading || isLoading) {
         return <LoadingDashboard></LoadingDashboard>
     }
 
+    if (!user) {
+        return (
+            <Navigate
+                to="/login"
+                state={{ from: loaction.pathname }}
+                replace
+            >
+            </Navigate>
+        )
+    }
     if (users.role !== "rider") {
         return (
             <Navigate
                 to="/login"
-                state={loaction.pathname}
+                replace
             >
             </Navigate>
         )

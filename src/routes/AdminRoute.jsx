@@ -7,16 +7,28 @@ import LoadingDashboard from '../utilits/LoadingDashboard';
 const AdminRoute = ({ children }) => {
   const { users, isLoading } = useRole();
   const { user, loading } = useAuth();
-  const loaction = useLocation();
-  if (loading || isLoading || !user) {
+  const userLoaction = useLocation();
+  if (loading || isLoading) {
     return <LoadingDashboard></LoadingDashboard>
   }
 
+  if (!user) {
+    return (
+      <Navigate
+        to="/login"
+        state={{
+          from: userLoaction.pathname
+        }}
+        replace
+      >
+      </Navigate>
+    )
+  }
   if (users.role !== "admin") {
     return (
       <Navigate
         to="/login"
-        state={loaction.pathname}
+        replace
       >
       </Navigate>
     )

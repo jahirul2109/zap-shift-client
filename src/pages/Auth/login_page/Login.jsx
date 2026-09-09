@@ -13,7 +13,7 @@ export const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location.state || '/';
+    const from = location.state?.from || '/';
     // console.log(location)
 
     const { handleSubmit, register, reset } = useForm()
@@ -30,7 +30,7 @@ export const Login = () => {
                         draggable: true
                     });
                 }
-                navigate(from)
+                navigate(from, { replace: true })
             })
             .catch(err => {
                 Swal.fire({

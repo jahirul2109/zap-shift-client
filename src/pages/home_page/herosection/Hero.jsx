@@ -34,9 +34,9 @@ const Hero = () => {
                         <img src={banner} alt="" className='' />
                         <div className='flex items-center gap-3 absolute top-[72%] left-20'>
                             <Link to='/dashboard/search-trackingId'>
-                                <button className=' flex items-center gap-2 py-2 px-4 bg-primary rounded-full font-semibold hover:underline cursor-pointer '>Track Your Percel <FaArrowCircleRight className=' text-xl -rotate-45' /></button>
+                                <button className=' text-xs md:text-xl flex items-center gap-2 md:py-2 md:px-4 py-1 px-2 bg-primary rounded-full font-semibold hover:underline cursor-pointer '>Track Your Percel <FaArrowCircleRight className=' text-xs md:text-xl -rotate-45' /></button>
                             </Link>
-                            <Link to="/riders"><button className='flex items-center gap-2 py-2 px-4 bg-secondary text-primary rounded-full font-semibold hover:underline cursor-pointer'>Be a Rider</button></Link>
+                            <Link to="/riders"><button className='flex text-xs md:text-xl items-center gap-2 md:py-2 md:px-4 py-1 px-2 bg-secondary text-primary rounded-full font-semibold hover:underline cursor-pointer'>Be a Rider</button></Link>
                         </div>
                     </div>
                 </SwiperSlide>)

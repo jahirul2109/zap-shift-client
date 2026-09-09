@@ -23,7 +23,6 @@ export const UserDashboard = () => {
 
 
   const status = parcelData[0]?.status;
-  console.log(parcelData[0]?.status)
   if (isLoading) {
     return <LoadingDashboard />
   }
@@ -51,7 +50,7 @@ export const UserDashboard = () => {
           status?.length > 0 ? <Charts data={status}></Charts> : <div className='h-[350px] flex justify-center items-center '><h1 className='text-2xl md:text-4xl text-secondary font-extrabold'>No data found</h1></div>
         }
       </div>
-      <div className='grid md:grid-cols-4 grid-cols-2 gap-3 items-center'>
+      <div className='grid md:grid-cols-4 grid-cols-1 gap-3 items-center'>
         <div className='flex justify-between items-center h-28 md:h-full shadow-md p-3 rounded-xl bg-white'>
           <div className=''>
             <h1 className='text-xl text-base-content'>Total Parcel</h1>

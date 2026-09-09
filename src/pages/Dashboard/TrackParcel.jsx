@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
 import { useParams } from 'react-router'
 import { useAxiousSecoure } from '../../hook/useAxiousSecoure';
 import LoadingDashboard from '../../utilits/LoadingDashboard';

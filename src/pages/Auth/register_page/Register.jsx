@@ -14,7 +14,7 @@ export const Register = () => {
     const axiosIntence = useAxiousSecoure();
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location.state || "/";
+    const from = location.state?.from || "/";
     // use react-hook-form
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const userSubmitedInfo = async (data) => {
